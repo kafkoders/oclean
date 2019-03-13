@@ -8,7 +8,10 @@
 
 import UIKit
 import MapKit
+
 import KUIPopOver
+import Alamofire
+import MBProgressHUD
 
 class ViewController: UIViewController, MKMapViewDelegate {
     
@@ -18,6 +21,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
     var locationManager: CLLocationManager!
     var latestCoordinates = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     var okAction: UIAlertAction!
+    
+    let serverIP = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,10 +40,23 @@ class ViewController: UIViewController, MKMapViewDelegate {
         let region = MKCoordinateRegion.init(center: initialLocation.coordinate, latitudinalMeters: searchRadius*2.0, longitudinalMeters: searchRadius * 2.0)
         mapView.setRegion(region, animated: true)
         
-        addPin(id: 0, title: "Edificio i+D+I", coordinates: CLLocationCoordinate2D(latitude: 40.9706496, longitude: -5.6778752))
-        addPin(id: 1, title: "Calle Zamora", coordinates: CLLocationCoordinate2D(latitude: 40.968068, longitude:  -5.666873))
-        addPin(id: 2, title: "Plaza Mayor", coordinates: CLLocationCoordinate2D(latitude: 40.964989, longitude: -5.66423))
-        addPin(id: 3, title: "Facultad de Ciencias", coordinates: CLLocationCoordinate2D(latitude:  40.960432, longitude:  -5.670694))
+        //Alamofire.request(serverIP + "")
+        Alamofire.request(serverIP + "").responseJSON { (response) in
+            if let data = response.result.value as? [[String: Any]] {
+                for pin in data {
+                    // La respuesta deberá ser del tipo ["username": "", "coordinates": "" ,...]
+                    if let id = pin["id"] as? Int,
+                        let username = pin["username"] as? String,
+                        let latitude = pin["coordinate_lat"] as? Double,
+                        let longitude = pin["coordinate_long"] as? Double,
+                        let question = pin["question"] as? String,
+                        let answer = pin["answer"] as? String {
+                        
+                        self.addPin(id: id, question: question, answer: answer, coordinates: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+                    }
+                }
+            }
+        }
         
         // Obtenemos la posición GPS
         locationManager = CLLocationManager()
@@ -47,28 +65,38 @@ class ViewController: UIViewController, MKMapViewDelegate {
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
         if !UserDefaults.standard.bool(forKey: "userEmail") {
             askEmail()
         }
     }
-    
     func askEmail() {
-        let alert = UIAlertController(title: "Establecer E-Mail", message: "Para poder utilizar esta aplicación es necesario que nos indique su correo electrónico.", preferredStyle: .alert)
-        var tField = UITextField()
+        let alert = UIAlertController(title: "Establecer E-Mail", message: "Para poder utilizar esta aplicación es necesario que nos indique su correo electrónico y un nombre de usuario.", preferredStyle: .alert)
+        
+        var mailTField = UITextField()
+        var userTField = UITextField()
         
         alert.addTextField { (textField) in
-            tField = textField
+            mailTField = textField
+            
+            textField.tag = 10
+            textField.placeholder = "Nombre de usuario"
+            textField.keyboardType = .emailAddress
+            textField.delegate = self
+        }
+        
+        alert.addTextField { (textField) in
+            userTField = textField
+            
+            textField.tag = 11
             textField.placeholder = "E-Mail"
             textField.keyboardType = .emailAddress
             textField.delegate = self
         }
         
         okAction = UIAlertAction(title: "Aceptar", style: .default, handler: { (UIAlertAction) in
-            if let mail = tField.text {
+            if let mail = mailTField.text, let username = userTField.text {
                 UserDefaults.standard.set(mail, forKey: "userEmail")
+                UserDefaults.standard.set(username, forKey: "userName")
             }
         })
         okAction.isEnabled = false
@@ -77,8 +105,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func addPin(id: Int, title: String, coordinates: CLLocationCoordinate2D) {
-        mapView.addAnnotation(Pin(id: id, question: title, answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vel ante in quam lobortis dignissim. Pellentesque posuere augue sit amet dui egestas ornare. Praesent consequat sodales mi, sit amet vestibulum nunc posuere quis.", coordinate: coordinates))
+    func addPin(id: Int, question: String, answer: String, coordinates: CLLocationCoordinate2D) {
+        mapView.addAnnotation(Pin(id: id, question: question, answer: answer, coordinate: coordinates))
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
@@ -96,7 +124,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func showAskMenu(_ sender: Any) {
-        if !UserDefaults.standard.bool(forKey: "userEmail") {
+        while !UserDefaults.standard.bool(forKey: "userEmail") {
             askEmail()
         }
         
@@ -109,8 +137,30 @@ class ViewController: UIViewController, MKMapViewDelegate {
         }
         
         alert.addAction(UIAlertAction(title: "Aceptar", style: .default, handler: { (UIAlertAction) in
-            if let pregunta = tField.text {
-                print("La pregunta ha sido...: \(pregunta)")
+            let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+            hud.mode = .indeterminate
+            hud.label.text = "Subiendo pregunta"
+            
+            if let question = tField.text,
+                let username = UserDefaults.standard.value(forKey: "userName"),
+                let userMail = UserDefaults.standard.value(forKey: "userEmail") {
+                
+                let queryData: Parameters = ["user": username, "mail": userMail, "coordinate_lat": self.latestCoordinates.latitude, "coordinate_long": self.latestCoordinates.longitude, "question": question]
+                
+                Alamofire.request(self.serverIP + "", method: .post, parameters: queryData).response(completionHandler: { (response) in
+                    if let code = response.response?.statusCode, code == 200 {
+                        print("Consulta hecha OK")
+                        hud.hide(animated: true)
+                    } else {
+                        hud.mode = .text
+                        hud.label.text = "Error subiendo pregunta."
+                        hud.hide(animated: true, afterDelay: 2)
+                    }
+                })
+            } else {
+                hud.mode = .text
+                hud.label.text = "Error subiendo pregunta."
+                hud.hide(animated: true, afterDelay: 2)
             }
         }))
         
