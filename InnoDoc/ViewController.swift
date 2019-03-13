@@ -52,7 +52,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
                         let question = pin["question"] as? String,
                         let answer = pin["answer"] as? String {
                         
-                        self.addPin(id: id, question: question, answer: answer, coordinates: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+                        self.addPin(id: id, username: username, question: question, answer: answer, coordinates: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
                     }
                 }
             }
@@ -105,8 +105,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func addPin(id: Int, question: String, answer: String, coordinates: CLLocationCoordinate2D) {
-        mapView.addAnnotation(Pin(id: id, question: question, answer: answer, coordinate: coordinates))
+    func addPin(id: Int, username: String, question: String, answer: String, coordinates: CLLocationCoordinate2D) {
+        mapView.addAnnotation(Pin(id: id, username: username, question: question, answer: answer, coordinate: coordinates))
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
