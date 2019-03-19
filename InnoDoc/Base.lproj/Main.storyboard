@@ -13,7 +13,7 @@
         <!--View Controller-->
         <scene sceneID="yrg-dr-unG">
             <objects>
-                <viewController id="zbY-4t-yWA" customClass="ViewController" customModule="Innovacio_n_Docente" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="zbY-4t-yWA" customClass="ViewController" customModule="InnoDoc" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rhg-0M-iNh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -27,6 +27,14 @@
                                 <state key="normal" title="Preguntar"/>
                                 <connections>
                                     <action selector="showAskMenu:" destination="zbY-4t-yWA" eventType="touchUpInside" id="zzq-Ce-UrP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjo-fY-zLy">
+                                <rect key="frame" x="31" y="37" width="72" height="72"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="earth"/>
+                                <connections>
+                                    <action selector="changeMode:" destination="zbY-4t-yWA" eventType="touchUpInside" id="Oao-Bl-RUG"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -45,12 +53,57 @@
                     </view>
                     <connections>
                         <outlet property="addButton" destination="GK3-Ax-BYn" id="PjF-Ba-kfm"/>
+                        <outlet property="changeMapButton" destination="pjo-fY-zLy" id="m4a-cu-iGx"/>
                         <outlet property="mapView" destination="jfA-06-8ou" id="EIB-Vt-dzb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JGa-BW-DQC" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="448" y="99"/>
+            <point key="canvasLocation" x="447.82608695652175" y="98.641304347826093"/>
+        </scene>
+        <!--Multi PinTVC-->
+        <scene sceneID="s92-AQ-90l">
+            <objects>
+                <tableViewController storyboardIdentifier="multipinTVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KZO-uB-Fhe" customClass="MultiPinTVC" customModule="InnoDoc" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ahO-iP-hIH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="questionTableID" textLabel="t0d-Hy-SKg" detailTextLabel="Y7g-08-yOe" style="IBUITableViewCellStyleSubtitle" id="OC0-UH-XOt">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OC0-UH-XOt" id="XDP-pC-JqZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="t0d-Hy-SKg">
+                                            <rect key="frame" x="20.000000000000004" y="5" width="33.333333333333336" height="20.333333333333332"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y7g-08-yOe">
+                                            <rect key="frame" x="19.999999999999996" y="25.333333333333332" width="43.666666666666664" height="14.333333333333334"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="KZO-uB-Fhe" id="Cqk-m3-MMM"/>
+                            <outlet property="delegate" destination="KZO-uB-Fhe" id="ivT-m2-Hie"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QTk-ap-hsg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1097" y="99"/>
         </scene>
         <!--Question DetailVC-->
         <scene sceneID="Y4r-v4-TII">
@@ -115,7 +168,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="in6-Gr-Uci" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1111.5942028985507" y="98.641304347826093"/>
+            <point key="canvasLocation" x="1762" y="99"/>
         </scene>
         <!--Pin Detail View Controller-->
         <scene sceneID="6jg-mo-TUC">
@@ -164,7 +217,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O53-7i-d1v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1812" y="99"/>
+            <point key="canvasLocation" x="2462" y="97"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="earth" width="72" height="72"/>
+    </resources>
 </document>

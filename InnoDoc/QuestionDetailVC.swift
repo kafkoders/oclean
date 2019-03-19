@@ -13,8 +13,7 @@ class QuestionDetailVC: UIViewController {
     @IBOutlet weak var answerText: UITextView!
     @IBOutlet weak var categoryLabel: UILabel!
     
-    var question: String?
-    var answer: String?
+    var pin: Pin?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,9 +22,10 @@ class QuestionDetailVC: UIViewController {
         let okButton = UIBarButtonItem(title: "OK", style: .plain, target: self, action: #selector(goBack))
         self.navigationItem.setRightBarButton(okButton, animated: true)
         
-        if let question = question, let answer = answer {
-            questionLabel.text = question
-            answerText.text = answer
+        if let pin = pin {
+            questionLabel.text = pin.question
+            answerText.text = pin.answer
+            categoryLabel.text = pin.category
             
             questionLabel.sizeToFit()
         }

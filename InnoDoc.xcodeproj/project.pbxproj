@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0705F2422240EAF3007912E0 /* MultiPinTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0705F2412240EAF3007912E0 /* MultiPinTVC.swift */; };
 		07E008FA2236E25300C9EE88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E008F92236E25300C9EE88 /* AppDelegate.swift */; };
 		07E008FC2236E25300C9EE88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E008FB2236E25300C9EE88 /* ViewController.swift */; };
 		07E008FF2236E25300C9EE88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E008FD2236E25300C9EE88 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0705F2412240EAF3007912E0 /* MultiPinTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPinTVC.swift; sourceTree = "<group>"; };
 		07E008F62236E25300C9EE88 /* InnoDoc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InnoDoc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E008F92236E25300C9EE88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07E008FB2236E25300C9EE88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 				07E0090B2236E74F00C9EE88 /* Pin.swift */,
 				07E008F92236E25300C9EE88 /* AppDelegate.swift */,
 				07E008FB2236E25300C9EE88 /* ViewController.swift */,
+				0705F2412240EAF3007912E0 /* MultiPinTVC.swift */,
 				07E009142237AB0400C9EE88 /* QuestionDetailVC.swift */,
 				07E008FD2236E25300C9EE88 /* Main.storyboard */,
 				07E009002236E25400C9EE88 /* Assets.xcassets */,
@@ -220,6 +223,7 @@
 			files = (
 				07E0090C2236E74F00C9EE88 /* Pin.swift in Sources */,
 				07E009152237AB0400C9EE88 /* QuestionDetailVC.swift in Sources */,
+				0705F2422240EAF3007912E0 /* MultiPinTVC.swift in Sources */,
 				07E008FC2236E25300C9EE88 /* ViewController.swift in Sources */,
 				07E008FA2236E25300C9EE88 /* AppDelegate.swift in Sources */,
 			);
