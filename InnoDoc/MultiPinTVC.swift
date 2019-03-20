@@ -17,7 +17,7 @@ class MultiPinTVC: UITableViewController, KUIPopOverUsable {
     }
     
     private lazy var size: CGSize = {
-        let realSize = Double(pinData.count * 44) + 30
+        let realSize = Double(pinData.count * 50) + 30
         self.tableView.isScrollEnabled = realSize > 250
         
         return CGSize(width: 270.0, height: (realSize > 250) ? 250.0 : realSize)
