@@ -49,6 +49,7 @@ class ViewController: UIViewController {
         
         // Registramos las clases y el delegado.
         mapView.delegate = self
+        mapView.showsUserLocation = true
         mapView.register(PinAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         mapView.register(ClusterPinView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
         
