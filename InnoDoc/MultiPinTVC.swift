@@ -45,12 +45,7 @@ class MultiPinTVC: UITableViewController, KUIPopOverUsable {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let pinDetailVC = storyboard.instantiateViewController(withIdentifier: "pinDetailView") as? PinDetailViewController {
-            pinDetailVC.pin = pinData[indexPath.row]
-            
-            pinDetailVC.showPopoverWithNavigationController(sourceView: view, shouldDismissOnTap: true)
-        }
+        ViewController.loadQuestionPopUp(pin: pinData[indexPath.row], sender: self)
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

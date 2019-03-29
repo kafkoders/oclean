@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zbY-4t-yWA">
-    <device id="retina5_5" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zbY-4t-yWA">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,39 +15,54 @@
             <objects>
                 <viewController id="zbY-4t-yWA" customClass="ViewController" customModule="InnoDoc" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rhg-0M-iNh">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="jfA-06-8ou">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jfA-06-8ou">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="667" id="0sZ-FI-Grp"/>
+                                    <constraint firstAttribute="width" constant="375" id="Dg7-hF-aFZ"/>
+                                </constraints>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjo-fY-zLy">
+                                <rect key="frame" x="31" y="37" width="32" height="32"/>
+                                <state key="normal" image="earth"/>
+                                <connections>
+                                    <action selector="changeMode:" destination="zbY-4t-yWA" eventType="touchUpInside" id="Oao-Bl-RUG"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GK3-Ax-BYn">
-                                <rect key="frame" x="74" y="631" width="266" height="66"/>
+                                <rect key="frame" x="74" y="592" width="227" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="x2S-bv-0BH"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <state key="normal" title="Preguntar"/>
                                 <connections>
                                     <action selector="showAskMenu:" destination="zbY-4t-yWA" eventType="touchUpInside" id="zzq-Ce-UrP"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjo-fY-zLy">
-                                <rect key="frame" x="31" y="37" width="72" height="72"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="earth"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hoU-j6-Hni">
+                                <rect key="frame" x="337" y="608" width="22" height="22"/>
                                 <connections>
-                                    <action selector="changeMode:" destination="zbY-4t-yWA" eventType="touchUpInside" id="Oao-Bl-RUG"/>
+                                    <action selector="showLegal:" destination="zbY-4t-yWA" eventType="touchUpInside" id="6xb-d4-qAu"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="jfA-06-8ou" firstAttribute="leading" secondItem="Rhg-0M-iNh" secondAttribute="leading" id="7e9-TQ-RWa"/>
-                            <constraint firstItem="jfA-06-8ou" firstAttribute="top" secondItem="Rhg-0M-iNh" secondAttribute="top" id="I07-KA-pDf"/>
-                            <constraint firstItem="jfA-06-8ou" firstAttribute="centerX" secondItem="GK3-Ax-BYn" secondAttribute="centerX" id="Ye3-HV-Th3"/>
-                            <constraint firstItem="jfA-06-8ou" firstAttribute="bottom" secondItem="cYy-0a-hjc" secondAttribute="bottom" id="hyW-86-DFf"/>
-                            <constraint firstAttribute="trailing" secondItem="jfA-06-8ou" secondAttribute="trailing" id="p14-uN-83G"/>
-                            <constraint firstItem="GK3-Ax-BYn" firstAttribute="top" secondItem="cYy-0a-hjc" secondAttribute="top" constant="611" id="rie-I8-gKu"/>
-                            <constraint firstItem="cYy-0a-hjc" firstAttribute="bottom" secondItem="GK3-Ax-BYn" secondAttribute="bottom" constant="39" id="wOQ-7S-pga"/>
-                            <constraint firstItem="GK3-Ax-BYn" firstAttribute="leading" secondItem="cYy-0a-hjc" secondAttribute="leading" constant="74" id="wvZ-gd-U87"/>
+                            <constraint firstItem="jfA-06-8ou" firstAttribute="leading" secondItem="Rhg-0M-iNh" secondAttribute="leading" id="LSZ-GX-Gmi"/>
+                            <constraint firstItem="hoU-j6-Hni" firstAttribute="top" secondItem="jfA-06-8ou" secondAttribute="bottom" constant="-59" id="PGv-82-0NR"/>
+                            <constraint firstItem="hoU-j6-Hni" firstAttribute="leading" secondItem="jfA-06-8ou" secondAttribute="trailing" constant="-38" id="PPu-Nz-IIR"/>
+                            <constraint firstItem="pjo-fY-zLy" firstAttribute="leading" secondItem="cYy-0a-hjc" secondAttribute="leading" constant="31" id="Ttg-ZD-VQ9"/>
+                            <constraint firstItem="jfA-06-8ou" firstAttribute="bottom" secondItem="cYy-0a-hjc" secondAttribute="bottom" id="UGT-YM-41C"/>
+                            <constraint firstItem="pjo-fY-zLy" firstAttribute="top" secondItem="cYy-0a-hjc" secondAttribute="top" constant="17" id="Y6C-Lc-QCa"/>
+                            <constraint firstItem="GK3-Ax-BYn" firstAttribute="leading" secondItem="cYy-0a-hjc" secondAttribute="leading" constant="74" id="a27-1g-N6o"/>
+                            <constraint firstAttribute="bottom" secondItem="GK3-Ax-BYn" secondAttribute="bottom" constant="20" symbolic="YES" id="fHn-1v-QcW"/>
+                            <constraint firstAttribute="trailing" secondItem="jfA-06-8ou" secondAttribute="trailing" id="gE5-P9-h5J"/>
+                            <constraint firstItem="jfA-06-8ou" firstAttribute="top" secondItem="Rhg-0M-iNh" secondAttribute="top" id="gjT-se-WVQ"/>
+                            <constraint firstItem="jfA-06-8ou" firstAttribute="centerX" secondItem="GK3-Ax-BYn" secondAttribute="centerX" id="xru-H9-w9i"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cYy-0a-hjc"/>
                     </view>
@@ -59,33 +74,33 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JGa-BW-DQC" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="447.82608695652175" y="98.641304347826093"/>
+            <point key="canvasLocation" x="447.19999999999999" y="98.50074962518741"/>
         </scene>
         <!--Multi PinTVC-->
         <scene sceneID="s92-AQ-90l">
             <objects>
                 <tableViewController storyboardIdentifier="multipinTVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KZO-uB-Fhe" customClass="MultiPinTVC" customModule="InnoDoc" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ahO-iP-hIH">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="questionTableID" textLabel="t0d-Hy-SKg" detailTextLabel="Y7g-08-yOe" style="IBUITableViewCellStyleSubtitle" id="OC0-UH-XOt">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OC0-UH-XOt" id="XDP-pC-JqZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="t0d-Hy-SKg">
-                                            <rect key="frame" x="20.000000000000004" y="5" width="33.333333333333336" height="20.333333333333332"/>
+                                            <rect key="frame" x="16" y="5" width="33.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y7g-08-yOe">
-                                            <rect key="frame" x="19.999999999999996" y="25.333333333333332" width="43.666666666666664" height="14.333333333333334"/>
+                                            <rect key="frame" x="16" y="25.5" width="44" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
@@ -110,7 +125,7 @@
             <objects>
                 <viewController storyboardIdentifier="questionDetailVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xmm-Qp-oEy" customClass="QuestionDetailVC" customModule="InnoDoc" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="laq-rJ-PNQ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="El usuario preguntó:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0n-AJ-pnA">
@@ -221,6 +236,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="earth" width="72" height="72"/>
+        <image name="earth" width="32" height="32"/>
     </resources>
 </document>

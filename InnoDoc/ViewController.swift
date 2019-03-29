@@ -12,6 +12,7 @@ import MapKit
 import KUIPopOver
 import Alamofire
 import MBProgressHUD
+import Malert
 
 class ViewController: UIViewController {
     
@@ -27,6 +28,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        definesPresentationContext = true
         
         // Ponemos bonitos los botone.
         addButton.layer.cornerRadius = 15
@@ -212,6 +215,19 @@ class ViewController: UIViewController {
             changeMapButton.setImage(#imageLiteral(resourceName: "earth"), for: .normal)
         }
     }
+    
+    @IBAction func showLegal(_ sender: Any) {
+        let legalView = TextFieldAlertView.instantiateFromNib()
+        
+        let alert = Malert(customView: legalView, tapToDismiss: false)
+        
+        let dismissAction = MalertAction(title: "OK")
+        dismissAction.tintColor = .gray
+        alert.addAction(dismissAction)
+        
+        present(alert, animated: true)
+    }
+    
 }
 
 extension ViewController: MKMapViewDelegate {
@@ -234,15 +250,45 @@ extension ViewController: MKMapViewDelegate {
                 multiPinTVC.showPopover(sourceView: view, shouldDismissOnTap: true)
             }
         } else if let annotation = view.annotation as? Pin {
-            if let pinDetailVC = storyboard.instantiateViewController(withIdentifier: "pinDetailView") as? PinDetailViewController {
-                pinDetailVC.pin = annotation
-                
-                pinDetailVC.showPopoverWithNavigationController(sourceView: view, shouldDismissOnTap: true)
-            }
+            ViewController.loadQuestionPopUp(pin: annotation, sender: self)
             
             mapView.deselectAnnotation(annotation, animated: true)
             
         }
+    }
+    
+    public static func loadQuestionPopUp(pin: Pin, sender: UIViewController) {
+        let view = PinDetailView.instantiateFromNib()
+        view.loadQuestion(pin: pin)
+        
+        let alert = Malert(customView: view, tapToDismiss: false)
+        alert.buttonsAxis = .horizontal
+        alert.separetorColor = .clear
+        alert.cornerRadius = 20
+        alert.animationType = .fadeIn
+        alert.presentDuration = 0.6
+        
+        let firstAction = MalertAction(title: "Aceptar") {
+            print("Dismiss")
+        }
+        
+        firstAction.tintColor = UIColor.lightGray
+        alert.addAction(firstAction)
+        
+        let secondAction = MalertAction(title: "Ver más") {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let vc = storyboard.instantiateViewController(withIdentifier: "questionDetailVC") as? QuestionDetailVC {
+                vc.pin = pin
+                
+                sender.dismiss(animated: true, completion: {
+                    sender.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+                })
+            }
+        }
+        secondAction.tintColor = UIColor(red:0.65, green:0.11, blue:0.13, alpha:1.0)
+        alert.addAction(secondAction)
+        
+        sender.present(alert, animated: true)
     }
 }
 
@@ -276,6 +322,10 @@ extension ViewController: CLLocationManagerDelegate {
     }
 }
 
+
+
+
+// BORRAR
 class PinDetailViewController: UIViewController, KUIPopOverUsable {
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var answerLabel: UILabel!

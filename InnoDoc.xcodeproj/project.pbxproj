@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0705F2422240EAF3007912E0 /* MultiPinTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0705F2412240EAF3007912E0 /* MultiPinTVC.swift */; };
+		07989614224C0569001E8A07 /* TextFieldAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07989613224C0569001E8A07 /* TextFieldAlertView.xib */; };
+		07989616224C05DC001E8A07 /* TextFieldAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07989615224C05DC001E8A07 /* TextFieldAlertView.swift */; };
+		07989619224E12CF001E8A07 /* PinDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07989617224E12CF001E8A07 /* PinDetailView.xib */; };
+		0798961A224E12CF001E8A07 /* PinDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07989618224E12CF001E8A07 /* PinDetailView.swift */; };
 		07E008FA2236E25300C9EE88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E008F92236E25300C9EE88 /* AppDelegate.swift */; };
 		07E008FC2236E25300C9EE88 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E008FB2236E25300C9EE88 /* ViewController.swift */; };
 		07E008FF2236E25300C9EE88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E008FD2236E25300C9EE88 /* Main.storyboard */; };
@@ -20,6 +24,10 @@
 
 /* Begin PBXFileReference section */
 		0705F2412240EAF3007912E0 /* MultiPinTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPinTVC.swift; sourceTree = "<group>"; };
+		07989613224C0569001E8A07 /* TextFieldAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldAlertView.xib; sourceTree = "<group>"; };
+		07989615224C05DC001E8A07 /* TextFieldAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAlertView.swift; sourceTree = "<group>"; };
+		07989617224E12CF001E8A07 /* PinDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PinDetailView.xib; sourceTree = "<group>"; };
+		07989618224E12CF001E8A07 /* PinDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinDetailView.swift; sourceTree = "<group>"; };
 		07E008F62236E25300C9EE88 /* InnoDoc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InnoDoc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E008F92236E25300C9EE88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07E008FB2236E25300C9EE88 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -46,6 +54,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07989612224BFF69001E8A07 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				07989618224E12CF001E8A07 /* PinDetailView.swift */,
+				07989617224E12CF001E8A07 /* PinDetailView.xib */,
+				07989615224C05DC001E8A07 /* TextFieldAlertView.swift */,
+				07989613224C0569001E8A07 /* TextFieldAlertView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		07E008ED2236E25300C9EE88 = {
 			isa = PBXGroup;
 			children = (
@@ -67,6 +86,7 @@
 		07E008F82236E25300C9EE88 /* InnoDoc */ = {
 			isa = PBXGroup;
 			children = (
+				07989612224BFF69001E8A07 /* Views */,
 				07E0090B2236E74F00C9EE88 /* Pin.swift */,
 				07E008F92236E25300C9EE88 /* AppDelegate.swift */,
 				07E008FB2236E25300C9EE88 /* ViewController.swift */,
@@ -157,6 +177,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07989619224E12CF001E8A07 /* PinDetailView.xib in Resources */,
+				07989614224C0569001E8A07 /* TextFieldAlertView.xib in Resources */,
 				07E009042236E25400C9EE88 /* LaunchScreen.storyboard in Resources */,
 				07E009012236E25400C9EE88 /* Assets.xcassets in Resources */,
 				07E008FF2236E25300C9EE88 /* Main.storyboard in Resources */,
@@ -178,6 +200,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/KUIPopOver/KUIPopOver.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/Malert/Malert.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -186,6 +209,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KUIPopOver.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Malert.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -223,7 +247,9 @@
 			files = (
 				07E0090C2236E74F00C9EE88 /* Pin.swift in Sources */,
 				07E009152237AB0400C9EE88 /* QuestionDetailVC.swift in Sources */,
+				0798961A224E12CF001E8A07 /* PinDetailView.swift in Sources */,
 				0705F2422240EAF3007912E0 /* MultiPinTVC.swift in Sources */,
+				07989616224C05DC001E8A07 /* TextFieldAlertView.swift in Sources */,
 				07E008FC2236E25300C9EE88 /* ViewController.swift in Sources */,
 				07E008FA2236E25300C9EE88 /* AppDelegate.swift in Sources */,
 			);
