@@ -45,10 +45,6 @@ news_model = NewsModel(DB_HOST, DB_PORT, DB_USER, DB_PASSWD, DB_NAME)
 @app.errorhandler(404)
 def not_found(error):
     return "endpoint not found", 404
- 
-@app.errorhandler(500)
-def not_found(error):
-    return f"an unknown error occurred: {error}", 500
 
 
 @app.route(SWAGGER_FILE_URL)

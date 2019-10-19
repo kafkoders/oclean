@@ -36,7 +36,7 @@ class SQLModel:
                 cursor.execute(query)
                 result = cursor.fetchall()
         except Exception as ex:
-            self._LOG.info(f"insert: status error: {query}: {ex}")
+            self._LOG.info(f"retrieve: status error: {query}: {ex}")
             return None
-        self._LOG.info(f"insert: status OK: {query}")
+        self._LOG.info(f"retrieve: status OK: {query}")
         return result
