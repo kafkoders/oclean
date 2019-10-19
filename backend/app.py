@@ -185,7 +185,7 @@ def organizations_endpoint_post():
     log.info(f"POST {flask_request.path}: {flask_request.args}")
 
     log.info(f"POST {flask_request.path}: creating formulary")
-    form = OrganizationsPostForm(flask_request.form)
+    form = OrganizationsPostForm(flask_request.get_json())
     if not form.validate():
         log.info(f"POST {flask_request.path}: malformed request")
         return form.build_error_response("malformed request"), 403

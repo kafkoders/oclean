@@ -70,10 +70,10 @@ class RelatedNewsForm(Form):
 class OrganizationsPostForm(Form):
 
 	def __init__(self, parameters):
-		self.url = parameters.get('url')
-		self.name = parameters.get('name')
-		self.token = parameters.get('token')
-		self.description = parameters.get('description')
+		self.url = parameters['url'] if 'url' in parameters else None
+		self.name = parameters['name'] if 'name' in parameters else None
+		self.token = parameters['token'] if 'token' in parameters else None
+		self.description = parameters['description'] if 'description' in parameters else None
 
 	def validate(self):
 		return not (self.url is None or self.name is None or self.token is None or self.description is None)
