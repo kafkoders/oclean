@@ -1,14 +1,19 @@
 import logging
+
 from flask import Flask, abort
 from flask import request as flask_request
 from flask_swagger_ui import get_swaggerui_blueprint
-from models.problematicsmodel import ProblematicsModel 
+
+from config import DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWD
 from config import APP_NAME, LOG_NAME, SWAGGER_URL, SWAGGER_FILE, SWAGGER_FILE_URL
+
+from forms import HeatMapForm, DonateCCForm, DonateBlockChainForm, ProblematicsForm, RelatedNewsForm
 
 from models.newsmodel import NewsModel
 from models.heatmapmodel import HeatMapModel
 from models.donationmodel import DonationModel
 from models.blockchainmodel import BlockChainModel
+from models.problematicsmodel import ProblematicsModel 
 
 ############# CONFIGURAION ################
 
@@ -33,17 +38,13 @@ blockchain_model = BlockChainModel()
 heatmap_model = HeatMapModel()
 donation_model = DonationModel()
 problematics_model = ProblematicsModel()
-news_model = NewsModel()
+news_model = NewsModel(DB_HOST, DB_PORT, DB_USER, DB_PASSWD, DB_NAME)
 
 ################## ERRORS ##################
 
 @app.errorhandler(404)
 def not_found(error):
     return "endpoint not found", 404
- 
-@app.errorhandler(500)
-def not_found(error):
-    return f"an unknown error occurred: {error}", 500
 
 
 @app.route(SWAGGER_FILE_URL)
@@ -136,17 +137,17 @@ def news_hdlr():
     log.info(f"GET {flask_request.path}: {flask_request.args}")
     
     log.info(f"GET {flask_request.path}: creating formulary")
-    form = RelatedNewsForm(flask_request)
+    form = RelatedNewsForm()
     if not form.validate():
         log.info(f"GET {flask_request.path}: malformed request")
         return form.build_error_response("malformed request"), 403
 
     log.info(f"GET {flask_request.path}: querying model")
     try:
-        news_model.foo()
+        news = news_model.retrieve_news()
     except Exception as ex:
         log.info(f"GET {flask_request.path}: error querying model {ex}")
         return form.build_error_response("internal server error"), 500
 
-    return form.build_response()
+    return form.build_response(news)
 

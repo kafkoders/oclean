@@ -3,16 +3,13 @@ from typing import Dict, Any
 
 class Form:
 
-	def __init__():
+	def validate(self):
 		raise Exception("Not implemented")
 
-	def validate():
+	def build_response(self):
 		raise Exception("Not implemented")
 
-	def build_response():
-		raise Exception("Not implemented")
-
-	def build_error_response(error):
+	def build_error_response(self, error):
 		return {
 			"status": False,
 			"error": error
@@ -20,63 +17,51 @@ class Form:
 
 class HeatMapForm(Form):
 
-	def __init__():
-		pass
-
-	def validate():
+	def validate(self):
 		return True
 
-	def build_response():
+	def build_response(self):
 		pass
 
 
 
 class DonateCCForm(Form):
 
-	def __init__():
-		pass
-
-	def validate():
+	def validate(self):
 		return True
 
-	def build_response():
+	def build_response(self):
 		pass
 
 
 
 class DonateBlockChainForm(Form):
-	
-	def __init__():
-		pass
 
-	def validate():
+	def validate(self):
 		return True
 
-	def build_response():
+	def build_response(self):
 		pass
 
 
 
 class ProblematicsForm(Form):
-	
-	def __init__():
-		pass
 
-	def validate():
+	def validate(self):
 		return True
 
-	def build_response():
+	def build_response(self):
 		pass
 
 
 
 class RelatedNewsForm(Form):
-	
-	def __init__():
-		pass
 
-	def validate():
+	def validate(self):
 		return True
 
-	def build_response():
-		pass
+	def build_response(self, news):
+		return {
+			"status": True,
+			"news": news
+		}
