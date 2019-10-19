@@ -118,25 +118,6 @@ def donate_blockchain_endpoint():
 
     return form.build_response()
 
-@app.route("/v1/problematics", methods=["GET"])
-def problematics_endpoint():
-    log.info(f"GET {flask_request.path}")
-    
-    log.info(f"GET {flask_request.path}: creating formulary")
-    form = ProblematicsForm(flask_request)
-    if not form.validate():
-        log.info(f"GET {flask_request.path}: malformed request")
-        return form.build_error_response("malformed request"), 403
-
-    log.info(f"GET {flask_request.path}: querying model")
-    try:
-        problematics_model.foo()
-    except Exception as ex:
-        log.info(f"GET {flask_request.path}: error querying model {ex}")
-        return form.build_error_response("internal server error"), 500
-
-    return form.build_response()
-
 @app.route("/v1/news", methods=["GET"])
 def news_endpoint():
     log.info(f"GET {flask_request.path}")
