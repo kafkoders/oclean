@@ -1781,8 +1781,8 @@ ul.icons {
 .need{
   padding-top: 19px;
   margin-top: 10px;
-  padding-bottom: 10px;
-  margin-bottom: 10px; 
+  padding-bottom: 160px;
+  margin-bottom: 160px; 
   padding-left: 20px;
   margin-left: 20px; 
   padding-right: 20px;
@@ -1865,15 +1865,11 @@ ul.icons {
 }
 
 .image-problematics2{
-    padding: 20px 10px 10px 10px;
+    padding-bottom: 20px;
     width: 450px;
     height: 300px;
     float: right;
-    margin-bottom: 200px;
-}
-
-#link_read {
-    margin-bottom: 200px;
+    margin-bottom: 100px;
 }
 
 #image-problematics1, #image-problematics3, #image-problematics5, #image-problematics7{

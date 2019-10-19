@@ -95,7 +95,7 @@ function CreateTable() {
   ];
 
 
-    
+    var default_image = "images/default.jpg";
 
     for (var i = 0; i < requests_array.length; i++) {
 
@@ -111,59 +111,22 @@ function CreateTable() {
                     <p class="card-text">{text}</p>
                     <a href="{link}" id="link_read" class="btn btn-primary">Read more</a>
                   </div>
-                <img class="image-problematics2" src="images/banner.jpg" alt="Card image cap">
+                <img class="image-problematics2" src="{img}" alt="Card image cap">
             </div>
                             
             <hr class="separador" />
             `;        
         
-        div.innerHTML = div.innerHTML.replace("{img}", requests_array[i]['image']);
+        if (requests_array[i]['image'].startsWith("http"))
+            div.innerHTML = div.innerHTML.replace("{img}", requests_array[i]['image']);
+        else
+            div.innerHTML = div.innerHTML.replace("{img}", default_image);
         div.innerHTML = div.innerHTML.replace("{date}", requests_array[i]['publicationDate']);
         div.innerHTML = div.innerHTML.replace("{source}", requests_array[i]['newspaper']);
         div.innerHTML = div.innerHTML.replace("{title}", requests_array[i]['title']);
         div.innerHTML = div.innerHTML.replace("{text}", requests_array[i]['description']);
         div.innerHTML = div.innerHTML.replace("{link}", requests_array[i]['url']);
         document.getElementById('Necesidades').appendChild(div);
-        
-        /*
-        img.src = requests_array[i]['image'];
-        cell_image.appendChild(img);
-
-        var date_text_div = document.createElement("div");
-        text_div.id = "div1"
-        var newContent = document.createTextNode(requests_array[i]['date'])
-        date_text_div.appendChild
-        
-        var title_text_div = document.createElement("h3");
-        date_text_div.appendChild(title_text_div);
-        cell_text.appendChild(date_text_div);
-        
-        var body_text_div = document.createElement("div");
-        text_div.id = "div3";
-        cell_text.appendChild(body_text_div);
-        
-        
-        var content = document.createElement('div');
-        content.class = "row";
-        var imgDiv = document.createElement('div');
-        imgDiv.class = 'col-md-4';
-        var newsDiv = document.createElement('div');
-        newsDiv.class = 'col-md-8';
-        
-        content.appendChild(imgDiv);
-        content.appendChild(newsDiv);
-        
-        var img = document.createElement('img');
-        img.class = "img-fluid img-thumbnail";
-        img.style = "margin-left:160px; width:250px";
-        img.src = requests_array[i]['image'];
-        imgDiv.appendChild(img)
-        
-        var dateSource = document.createElement('div');
-        dateSource.class = 'row';
-        
-        */
-        
         
     };
 
@@ -204,7 +167,7 @@ function CreateTable() {
 
 		<!-- Heading -->
 			<div id="heading" >
-				<h1>Generic Page</h1>
+				<h1>News and Reports</h1>
 			</div>
 
 		<!-- Main -->
@@ -212,8 +175,6 @@ function CreateTable() {
 				<div class="inner">
 					<div class="content">
                         <div class="section" id="Necesidades">
-
-                          <p><div class="to_top"><a href="#top">&nbsp;&nbsp;</a></div></p>
 
                         </div>
                     </div>
