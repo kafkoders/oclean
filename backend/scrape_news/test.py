@@ -16,7 +16,7 @@ def news_hdlr():
 	googlenews = GoogleNews()
 	googlenews.search(keyword+"+trash")
 
-	return jsonify({'news': googlenews.result()})
+	return jsonify({'links': googlenews.result()})
 
 if __name__ == "__main__":
 	api.run(host="0.0.0.0", port=5000)
