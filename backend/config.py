@@ -15,5 +15,8 @@ SWAGGER_URL = '/v1/doc'
 SWAGGER_FILE = 'resources/swagger.json'
 SWAGGER_FILE_URL = '/v1/doc/swagger.json'
 
-# Define the application directory
+# define the application directory
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+# log configuration
+LOG_NAME = APP_NAME
