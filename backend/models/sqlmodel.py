@@ -1,5 +1,10 @@
 
 class SQLModel():
 
-	def foo():
-		return True
+	def insert(query):
+
+	def update():
+
+	def delete():
+
+	def retrieve():
