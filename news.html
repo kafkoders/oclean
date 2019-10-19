@@ -1,0 +1,297 @@
+<!DOCTYPE HTML>
+<!--
+	Industrious by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+
+<!-- Chart code -->
+
+<script>
+
+function CreateTable() {
+
+    var requests_array = [
+    {
+      "description": "The giant floating boom has been deployed in the Pacific Ocean to try and fight the 'Great Pacific Garbage Patch'. The garbage patch\u00a0...", 
+      "image": "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==", 
+      "newspaper": "Metro", 
+      "publicationDate": "7 oct. 2019", 
+      "title": "Gigantic ocean cleanup device takes on the 'Great Pacific ...", 
+      "url": "https://metro.co.uk/2019/10/07/gigantic-ocean-cleanup-device-takes-great-pacific-garbage-patch-10873873/"
+    }, 
+    {
+      "description": "The billions of tonnes of plastic in our oceans isn't going away any time soon, but innovative companies here and abroad are working together\u00a0...", 
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbHHJlvjZXrGRCXMnnav3eJYRSxCf0O9R4EMJAxIDzd8hhIdr_nnl6RK7zuTpwaFqamBPqhIYY", 
+      "newspaper": "The Spinoff", 
+      "publicationDate": "17 oct. 2019", 
+      "title": "From trash to treasure: finding the value in ocean waste", 
+      "url": "https://thespinoff.co.nz/partner/ecostore-ocean-waste/18-10-2019/from-trash-to-treasure-finding-the-value-in-ocean-waste/"
+    }, 
+    {
+      "description": "Boyan Slat, a university dropout who founded The Ocean Cleanup ... one of a handful of groups working to collect trash from the open oceans.", 
+      "image": "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==", 
+      "newspaper": "wpde.com", 
+      "publicationDate": "Hace 4 horas", 
+      "title": "Judge halts funeral plans for woman shot at home by officer", 
+      "url": "https://wpde.com/news/nation-world/judge-halts-funeral-plans-for-woman-shot-at-home-by-officer"
+    }, 
+    {
+      "description": "New research suggests we might be thinking about the ocean plastic problem all wrong \u2014 trash dumped from ships could be a major culprit.", 
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzhkth8zPGLrz3vgtvAdHYP1FDIyB3jCtRLt8hwj8RBBYgXJ_dLjSOAZoYJk1UQTvfVh6eb4y2", 
+      "newspaper": "Business Insider UK", 
+      "publicationDate": "4 oct. 2019", 
+      "title": "New research suggests we might be thinking about the ocean ...", 
+      "url": "https://www.businessinsider.com/plastic-pollution-ocean-comes-from-ships-trash-2019-10"
+    }, 
+    {
+      "description": "More than 8 million tons of plastic ends up in the world's oceans each year -- the equivalent of a garbage truck dumped every minute.", 
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJsERuXzNMtFkCcAzYCEgDMG4pqUyXgr919tNC6-OZHqkz_EYv0cnZtVQ4m0sbcBuDomRpWHg", 
+      "newspaper": "CNN International", 
+      "publicationDate": "17 oct. 2019", 
+      "title": "He's doing the 'dirty work' to keep plastic out of the ocean", 
+      "url": "https://www.cnn.com/2019/10/17/world/cnnheroes-afroz-shah-afroz-shah-foundation/index.html"
+    }, 
+    {
+      "description": "That giant pile of plastic trash in the ocean just got a little smaller. Dutch inventor Boyan Slat's Ocean Cleanup project recently collected its first\u00a0...", 
+      "image": "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==", 
+      "newspaper": "NPR", 
+      "publicationDate": "5 oct. 2019", 
+      "title": "Ocean Cleanup Project Finally Collects Plastic From Great ...", 
+      "url": "https://www.npr.org/2019/10/05/767572876/great-pacific-garbage-patch-collects-its-1st-plastic"
+    }, 
+    {
+      "description": "An innovative company has created a drone that sucks garbage from water. The WasteShark\u2122 collects plastics, microplastics and floating debris by moving\u00a0...", 
+      "image": "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==", 
+      "newspaper": "One Green Planet", 
+      "publicationDate": "3 oct. 2019", 
+      "title": "Meet The 'Shark' Drone That Collects Trash From The Oceans", 
+      "url": "https://www.onegreenplanet.org/environment/meet-the-shark-drone-that-collects-trash-from-the-oceans/"
+    }, 
+    {
+      "description": "Q: Could you mention that documentary, \u201cA Plastic Ocean\u201d? Maybe suggest using metal straws? \u2014 L.F., East Greenwich. A: I've had the\u00a0...", 
+      "image": "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==", 
+      "newspaper": "The Providence Journal", 
+      "publicationDate": "Hace 13 horas", 
+      "title": "Trash Tutorial: Small gestures can help solve the ocean ...", 
+      "url": "https://www.providencejournal.com/news/20191018/trash-tutorial-small-gestures-can-help-solve-ocean-plastics-dilemma"
+    }, 
+    {
+      "description": "Boyan Slat, the creator of the Ocean Cleanup project, tweeted that the 600 ... debris from what is known as the Great Pacific Garbage Patch.", 
+      "image": "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==", 
+      "newspaper": "The Guardian", 
+      "publicationDate": "3 oct. 2019", 
+      "title": "Ocean cleanup device successfully collects plastic for first time", 
+      "url": "https://www.theguardian.com/environment/2019/oct/03/ocean-cleanup-device-successfully-collects-plastic-for-first-time"
+    }, 
+    {
+      "description": "FILE - A ship tows the Ocean Cleanup Project's first buoyant trash-collecting device toward the Golden Gate Bridge in San Francisco en route to\u00a0...", 
+      "image": "data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==", 
+      "newspaper": "Voice of America", 
+      "publicationDate": "3 oct. 2019", 
+      "title": "Ocean Cleanup Boom Begins Sweeping Pacific for Trash ...", 
+      "url": "https://www.voanews.com/science-health/ocean-cleanup-boom-begins-sweeping-pacific-trash"
+    }
+  ];
+
+
+    
+
+    for (var i = 0; i < requests_array.length; i++) {
+
+        var template = "";
+        
+        const div = document.createElement('div');
+
+          div.innerHTML = `
+            <div class="need">
+                  <div class="need-value">
+                    <p class="need-value"><small class="text-muted">{date}, {source}</small></p>
+                    <h5 class="card-title">{title}</h5>
+                    <p class="card-text">{text}</p>
+                    <a href="{link}" id="link_read" class="btn btn-primary">Read more</a>
+                  </div>
+                <img class="image-problematics2" src="images/banner.jpg" alt="Card image cap">
+            </div>
+                            
+            <hr class="separador" />
+            `;        
+        
+        div.innerHTML = div.innerHTML.replace("{img}", requests_array[i]['image']);
+        div.innerHTML = div.innerHTML.replace("{date}", requests_array[i]['publicationDate']);
+        div.innerHTML = div.innerHTML.replace("{source}", requests_array[i]['newspaper']);
+        div.innerHTML = div.innerHTML.replace("{title}", requests_array[i]['title']);
+        div.innerHTML = div.innerHTML.replace("{text}", requests_array[i]['description']);
+        div.innerHTML = div.innerHTML.replace("{link}", requests_array[i]['url']);
+        document.getElementById('Necesidades').appendChild(div);
+        
+        /*
+        img.src = requests_array[i]['image'];
+        cell_image.appendChild(img);
+
+        var date_text_div = document.createElement("div");
+        text_div.id = "div1"
+        var newContent = document.createTextNode(requests_array[i]['date'])
+        date_text_div.appendChild
+        
+        var title_text_div = document.createElement("h3");
+        date_text_div.appendChild(title_text_div);
+        cell_text.appendChild(date_text_div);
+        
+        var body_text_div = document.createElement("div");
+        text_div.id = "div3";
+        cell_text.appendChild(body_text_div);
+        
+        
+        var content = document.createElement('div');
+        content.class = "row";
+        var imgDiv = document.createElement('div');
+        imgDiv.class = 'col-md-4';
+        var newsDiv = document.createElement('div');
+        newsDiv.class = 'col-md-8';
+        
+        content.appendChild(imgDiv);
+        content.appendChild(newsDiv);
+        
+        var img = document.createElement('img');
+        img.class = "img-fluid img-thumbnail";
+        img.style = "margin-left:160px; width:250px";
+        img.src = requests_array[i]['image'];
+        imgDiv.appendChild(img)
+        
+        var dateSource = document.createElement('div');
+        dateSource.class = 'row';
+        
+        */
+        
+        
+    };
+
+}    
+</script>
+
+
+<html>
+	<head>
+		<title>Generic Page - Oc(l)ean by TEMPLATED</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload" onload="javascript:CreateTable()">
+
+		<!-- Header -->
+			<header id="header">
+				<a class="logo" href="index.html">Oc(l)ean S.L</a>
+				<nav>
+					<a href="#menu">Menu</a>
+				</nav>
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="index.html">Home</a></li>
+                    <li><a href="design.html">Design</a></li>
+                    <li><a href="problematics.html">Problematics</a></li>
+				    <li><a href="news.html">News and Reports</a></li>
+					<li><a href="donations.html">Grants and Donations</a></li>
+                    <li><a href="app.html">App</a></li>
+				</ul>
+			</nav>
+
+		<!-- Heading -->
+			<div id="heading" >
+				<h1>Generic Page</h1>
+			</div>
+
+		<!-- Main -->
+        <section id="main" class="wrapper">
+				<div class="inner">
+					<div class="content">
+                        <div class="section" id="Necesidades">
+
+                          <p><div class="to_top"><a href="#top">&nbsp;&nbsp;</a></div></p>
+
+                        </div>
+                    </div>
+				</div>
+        </section>
+        <!--
+			<section id="main" class="wrapper">
+				<div class="inner">
+					<div class="container">
+                          <div class="row">
+                            <div class="col-12">
+                                <table class="table table-image">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Image</th>
+                                      <th scope="col">Article Name</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody id="mytablecontent">
+                                    <tr>
+                                      <td class="w-25">
+                                          <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-3.jpg" class="img-fluid img-thumbnail" alt="Sheep" style="width:350px">
+                                      </td>
+                                      <td class="">Bootstrap 4 CDN and Starter Template</td>
+                                    </tr>
+                                    <tr>
+                                      <td class="w-25">
+                                          <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-5.jpg" class="img-fluid img-thumbnail" alt="Sheep"  style="width:350px">
+                                      </td>
+                                      <td>Bootstrap Grid 4 Tutorial and Examples</td>
+                                    </tr>
+                                  </tbody>
+                                </table>   
+                            </div>
+                          </div>
+                        </div>
+				</div>
+			</section>
+        -->
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<div class="content">
+						<section>
+							<h3>Accumsan montes viverra</h3>
+							<p>Nunc lacinia ante nunc ac lobortis. Interdum adipiscing gravida odio porttitor sem non mi integer non faucibus ornare mi ut ante amet placerat aliquet. Volutpat eu sed ante lacinia sapien lorem accumsan varius montes viverra nibh in adipiscing. Lorem ipsum dolor vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing sed feugiat eu faucibus. Integer ac sed amet praesent. Nunc lacinia ante nunc ac gravida.</p>
+						</section>
+						<section>
+							<h4>Sem turpis amet semper</h4>
+							<ul class="alt">
+								<li><a href="#">Dolor pulvinar sed etiam.</a></li>
+								<li><a href="#">Etiam vel lorem sed amet.</a></li>
+								<li><a href="#">Felis enim feugiat viverra.</a></li>
+								<li><a href="#">Dolor pulvinar magna etiam.</a></li>
+							</ul>
+						</section>
+						<section>
+							<h4>Magna sed ipsum</h4>
+							<ul class="plain">
+								<li><a href="#"><i class="icon fa-twitter">&nbsp;</i>Twitter</a></li>
+								<li><a href="#"><i class="icon fa-facebook">&nbsp;</i>Facebook</a></li>
+								<li><a href="#"><i class="icon fa-instagram">&nbsp;</i>Instagram</a></li>
+								<li><a href="#"><i class="icon fa-github">&nbsp;</i>Github</a></li>
+							</ul>
+						</section>
+					</div>
+					<div class="copyright">
+						&copy; Untitled. Photos <a href="https://unsplash.co">Unsplash</a>, Video <a href="https://coverr.co">Coverr</a>.
+					</div>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
