@@ -9,20 +9,21 @@ from flask_swagger_ui import get_swaggerui_blueprint
 from config import DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWD
 from config import APP_NAME, LOG_NAME, SWAGGER_URL, SWAGGER_FILE, SWAGGER_FILE_URL
 
-from forms import HeatMapForm, DonateCCForm, DonateBlockChainForm, \
-    ProblematicsForm, RelatedNewsForm, OrganizationsForm
+from forms import HeatMapForm, RelatedNewsForm, OrganizationsForm
 
 from models.newsmodel import NewsModel
 from models.heatmapmodel import HeatMapModel
-from models.donationmodel import DonationModel
-from models.blockchainmodel import BlockChainModel
-from models.problematicsmodel import ProblematicsModel 
 from models.organizationsmodel import OrganizationsModel
 
 ############# CONFIGURAION ################
 
 app = Flask(APP_NAME)
 app.config.from_object('config')
+app.config['SECRET_KEY'] = 'the quick brown kafka jumps over the lazy coder'
+app.config['CORS_HEADERS'] = 'Content-Type'
+
+cors = CORS(app, resources={r"/v1/news": {"origins": "http://t24h.es:50002"}})
+
 app.register_blueprint(
     get_swaggerui_blueprint(
         SWAGGER_URL,
@@ -38,10 +39,7 @@ log = logging.getLogger(LOG_NAME)
 
 ################## MODELS ##################
 
-blockchain_model = BlockChainModel()
 heatmap_model = HeatMapModel()
-donation_model = DonationModel()
-problematics_model = ProblematicsModel()
 news_model = NewsModel(DB_HOST, DB_PORT, DB_USER, DB_PASSWD, DB_NAME)
 organization_model = OrganizationsModel(DB_HOST, DB_PORT, DB_USER, DB_PASSWD, DB_NAME)
 
@@ -61,6 +59,7 @@ def read_swagger_file():
 ################## SOURCE ##################
 
 @app.route("/v1/heatmap", methods=["GET"])
+@cross_origin(origin='t24h.es',headers=['Content- Type','application/json'])
 def heatmap_endpoint():
     log.info(f"GET {flask_request.path}")
     
@@ -80,45 +79,8 @@ def heatmap_endpoint():
     return form.build_response()
 
 
-@app.route("/v1/donate/cc", methods=["POST"])
-def donate_cc_endpoint():
-    log.info(f"POST {flask_request.path}")
-    
-    log.info(f"POST {flask_request.path}: creating formulary")
-    form = DonateCCForm(flask_request)
-    if not form.validate():
-        log.info(f"POST {flask_request.path}: malformed request")
-        return form.build_error_response("malformed request"), 403
-
-    log.info(f"POST {flask_request.path}: querying model")
-    try:
-        donation_model.foo()
-    except Exception as ex:
-        log.info(f"POST {flask_request.path}: error querying model {ex}")
-        return form.build_error_response("internal server error"), 500
-
-    return form.build_response()
-
-@app.route("/v1/donate/blockchain", methods=["POST"])
-def donate_blockchain_endpoint():
-    log.info(f"POST {flask_request.path}")
-    
-    log.info(f"POST {flask_request.path}: creating formulary")
-    form = DonateBlockChainForm(flask_request)
-    if not form.validate():
-        log.info(f"POST {flask_request.path}: malformed request")
-        return form.build_error_response("malformed request"), 403
-
-    log.info(f"POST {flask_request.path}: querying model")
-    try:
-        donation_model.foo()
-    except Exception as ex:
-        log.info(f"POST {flask_request.path}: error querying model {ex}")
-        return form.build_error_response("internal server error"), 500
-
-    return form.build_response()
-
 @app.route("/v1/news", methods=["GET"])
+@cross_origin(origin='t24h.es',headers=['Content- Type','application/json'])
 def news_endpoint():
     log.info(f"GET {flask_request.path}")
     

@@ -24,25 +24,6 @@ class HeatMapForm(Form):
 		pass
 
 
-class DonateCCForm(Form):
-
-	def validate(self):
-		return True
-
-	def build_response(self):
-		pass
-
-
-class DonateBlockChainForm(Form):
-
-	def validate(self):
-		return True
-
-	def build_response(self):
-		pass
-
-
-
 class RelatedNewsForm(Form):
 
 	def validate(self):
