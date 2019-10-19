@@ -60,7 +60,7 @@ def read_swagger_file():
 
 @app.route("/v1/heatmap", methods=["GET"])
 def heatmap_endpoint():
-    log.info(f"GET {flask_request.path}: {flask_request.args}")
+    log.info(f"GET {flask_request.path}")
     
     log.info(f"GET {flask_request.path}: creating formulary")
     form = HeatMapForm(flask_request)
@@ -80,7 +80,7 @@ def heatmap_endpoint():
 
 @app.route("/v1/donate/cc", methods=["POST"])
 def donate_cc_endpoint():
-    log.info(f"POST {flask_request.path}: {flask_request.args}")
+    log.info(f"POST {flask_request.path}")
     
     log.info(f"POST {flask_request.path}: creating formulary")
     form = DonateCCForm(flask_request)
@@ -99,7 +99,7 @@ def donate_cc_endpoint():
 
 @app.route("/v1/donate/blockchain", methods=["POST"])
 def donate_blockchain_endpoint():
-    log.info(f"POST {flask_request.path}: {flask_request.args}")
+    log.info(f"POST {flask_request.path}")
     
     log.info(f"POST {flask_request.path}: creating formulary")
     form = DonateBlockChainForm(flask_request)
@@ -118,7 +118,7 @@ def donate_blockchain_endpoint():
 
 @app.route("/v1/problematics", methods=["GET"])
 def problematics_endpoint():
-    log.info(f"GET {flask_request.path}: {flask_request.args}")
+    log.info(f"GET {flask_request.path}")
     
     log.info(f"GET {flask_request.path}: creating formulary")
     form = ProblematicsForm(flask_request)
@@ -137,7 +137,7 @@ def problematics_endpoint():
 
 @app.route("/v1/news", methods=["GET"])
 def news_endpoint():
-    log.info(f"GET {flask_request.path}: {flask_request.args}")
+    log.info(f"GET {flask_request.path}")
     
     log.info(f"GET {flask_request.path}: creating formulary")
     form = RelatedNewsForm()
@@ -163,7 +163,7 @@ def organizations_endpoint():
 
 
 def organizations_endpoint_get():
-    log.info(f"GET {flask_request.path}: {flask_request.args}")
+    log.info(f"GET {flask_request.path}")
 
     log.info(f"GET {flask_request.path}: creating formulary")
     form = OrganizationsGetForm()
@@ -182,7 +182,7 @@ def organizations_endpoint_get():
 
 
 def organizations_endpoint_post():
-    log.info(f"POST {flask_request.path}: {flask_request.args}")
+    log.info(f"POST {flask_request.path}")
 
     log.info(f"POST {flask_request.path}: creating formulary")
     form = OrganizationsPostForm(flask_request.get_json())
