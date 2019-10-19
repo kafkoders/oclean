@@ -6,10 +6,20 @@ from flask import Flask, request
 from flask.json import jsonify
 import json
 from typing import Any
-from config import DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT
 
 import pymysql
 import logging
+
+################ CONSTANTS ################
+
+# db config
+DB_USER = 'root'
+DB_PASSWORD = 'fran00'
+DB_HOST = 'localhost'
+DB_PORT = 3306
+DB_NAME = 'nasa'
+
+################ GLOBALS ################
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("test")
@@ -23,11 +33,11 @@ connection = pymysql.connect(
             port=DB_PORT,
             cursorclass=pymysql.cursors.DictCursor)
 
+################ METHODS ################
+
 def news_hdlr():
 
 	link_list = []
-	#raw_data = request.json
-	#keyword = raw_data['query']
 
 	# Instance of class GoogleNews
 	googlenews = GoogleNews()
@@ -35,11 +45,6 @@ def news_hdlr():
 
 	for news_item in googlenews.result():
 		sql_insert(news_item)
-
-# create table newscraper (url varchar(300) not null primary key, 
-#						   title text, 
-#                          newspaper text, 
-#                          publicationDate date, description text, image text);
 
 def sql_insert(form):
     try:
