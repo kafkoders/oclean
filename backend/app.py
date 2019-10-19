@@ -2,7 +2,15 @@ import logging
 from flask import Flask, abort
 from flask import request as flask_request
 from flask_swagger_ui import get_swaggerui_blueprint
+from models.problematicsmodel import ProblematicsModel 
 from config import APP_NAME, LOG_NAME, SWAGGER_URL, SWAGGER_FILE, SWAGGER_FILE_URL
+
+from models.newsmodel import NewsModel
+from models.heatmapmodel import HeatMapModel
+from models.donationmodel import DonationModel
+from models.blockchainmodel import BlockChainModel
+
+############# CONFIGURAION ################
 
 app = Flask(APP_NAME)
 app.config.from_object('config')
@@ -17,9 +25,15 @@ app.register_blueprint(
     , url_prefix=SWAGGER_URL
 )
 
-model = None
-
 log = logging.getLogger(LOG_NAME)
+
+################## MODELS ##################
+
+blockchain_model = BlockChainModel()
+heatmap_model = HeatMapModel()
+donation_model = DonationModel()
+problematics_model = ProblematicsModel()
+news_model = NewsModel()
 
 ################## ERRORS ##################
 
@@ -52,7 +66,7 @@ def heatmap_hdlr():
 
     log.info(f"GET {flask_request.path}: querying model")
     try:
-        pass
+        heatmap_model.foo()
     except Exception as ex:
         log.info(f"GET {flask_request.path}: error querying model {ex}")
         return form.build_error_response("internal server error"), 500
@@ -72,7 +86,7 @@ def donate_cc_hdlr():
 
     log.info(f"POST {flask_request.path}: querying model")
     try:
-        pass
+        donation_model.foo()
     except Exception as ex:
         log.info(f"POST {flask_request.path}: error querying model {ex}")
         return form.build_error_response("internal server error"), 500
@@ -91,7 +105,7 @@ def donate_blockchain_hdlr():
 
     log.info(f"POST {flask_request.path}: querying model")
     try:
-        pass
+        donation_model.foo()
     except Exception as ex:
         log.info(f"POST {flask_request.path}: error querying model {ex}")
         return form.build_error_response("internal server error"), 500
@@ -110,7 +124,7 @@ def problematics_hdlr():
 
     log.info(f"GET {flask_request.path}: querying model")
     try:
-        pass
+        problematics_model.foo()
     except Exception as ex:
         log.info(f"GET {flask_request.path}: error querying model {ex}")
         return form.build_error_response("internal server error"), 500
@@ -129,7 +143,7 @@ def news_hdlr():
 
     log.info(f"GET {flask_request.path}: querying model")
     try:
-        pass
+        news_model.foo()
     except Exception as ex:
         log.info(f"GET {flask_request.path}: error querying model {ex}")
         return form.build_error_response("internal server error"), 500
