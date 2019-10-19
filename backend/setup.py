@@ -7,9 +7,10 @@ setup(
     author="kafkoders",
     license="copyright",
     url="https://2019.spaceappschallenge.org",
-    packages=['Model'],
+    packages=['models'],
     install_requires=[
         'Flask==1.1.1',
-        'flask_swagger_ui'
+        'flask_swagger_ui',
+        "pymysql"
     ]
 )
