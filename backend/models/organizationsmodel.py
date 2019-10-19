@@ -15,14 +15,3 @@ class OrganizationsModel:
 		for org in orgs_array:
 			del org['id']
 		return orgs_array
-
-	def insert_organization(self, url, name, description):
-		orgs_query = f"INSERT INTO {OrganizationsModel._DB_TABLE} (url, name, description) VALUES(\'{url}\', \'{name}\', \'{description}\')"
-		result = self.sqlmodel.insert(orgs_query)
-		return result
-
-	def validate_token(self, token):
-		token_query = f"SELECT token FROM {OrganizationsModel._DB_TOKEN_TABLE};"
-		token_array = self.sqlmodel.retrieve(token_query)
-		token_list = [token_element['token'] for token_element in token_array]
-		return (token in token_list)

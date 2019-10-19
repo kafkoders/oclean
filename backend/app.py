@@ -10,7 +10,7 @@ from config import DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWD
 from config import APP_NAME, LOG_NAME, SWAGGER_URL, SWAGGER_FILE, SWAGGER_FILE_URL
 
 from forms import HeatMapForm, DonateCCForm, DonateBlockChainForm, \
-    ProblematicsForm, RelatedNewsForm, OrganizationsGetForm, OrganizationsPostForm
+    ProblematicsForm, RelatedNewsForm, OrganizationsForm
 
 from models.newsmodel import NewsModel
 from models.heatmapmodel import HeatMapModel
@@ -156,19 +156,12 @@ def news_endpoint():
 
     return form.build_response(news)
 
-@app.route("/v1/organizations", methods=["GET", "POST"])
+@app.route("/v1/organizations", methods=["GET"])
 def organizations_endpoint():
-    if flask_request.method == 'POST':
-        return organizations_endpoint_post()
-    elif flask_request.method == 'GET':
-        return organizations_endpoint_get()
-
-
-def organizations_endpoint_get():
     log.info(f"GET {flask_request.path}")
 
     log.info(f"GET {flask_request.path}: creating formulary")
-    form = OrganizationsGetForm()
+    form = OrganizationsForm()
     if not form.validate():
         log.info(f"GET {flask_request.path}: malformed request")
         return form.build_error_response("malformed request"), 403
@@ -181,36 +174,3 @@ def organizations_endpoint_get():
         return form.build_error_response("internal server error"), 500
 
     return form.build_response(news)
-
-
-def organizations_endpoint_post():
-    log.info(f"POST {flask_request.path}")
-
-    log.info(f"POST {flask_request.path}: creating formulary")
-    form = OrganizationsPostForm(flask_request.get_json())
-    if not form.validate():
-        log.info(f"POST {flask_request.path}: malformed request")
-        return form.build_error_response("malformed request"), 403
-
-    log.info(f"POST {flask_request.path}: validating token")
-    try:
-        is_token_valid = organization_model.validate_token(form.token)
-        if not is_token_valid:
-            log.info(f"POST {flask_request.path}: token not allowed")
-            return form.build_error_response("token not allowed"), 500
-    except Exception as ex:
-        log.info(f"POST {flask_request.path}: error querying model {ex}")
-        return form.build_error_response("internal server error"), 500
-
-
-    log.info(f"POST {flask_request.path}: querying model")
-    try:
-        is_insertion_ok = organization_model.insert_organization(form.url, form.name, form.description)
-        if not is_token_valid:
-            log.info(f"POST {flask_request.path}: error on insertion")
-            return form.build_error_response("internal server error"), 500
-    except Exception as ex:
-        log.info(f"POST {flask_request.path}: error querying model {ex}")
-        return form.build_error_response("internal server error"), 500
-
-    return form.build_response()
