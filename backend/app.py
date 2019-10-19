@@ -143,10 +143,10 @@ def news_hdlr():
 
     log.info(f"GET {flask_request.path}: querying model")
     try:
-        news_model.foo()
+        news = news_model.retrieve_news()
     except Exception as ex:
         log.info(f"GET {flask_request.path}: error querying model {ex}")
         return form.build_error_response("internal server error"), 500
 
-    return form.build_response()
+    return form.build_response(news)
 

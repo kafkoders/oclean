@@ -3,9 +3,6 @@ from typing import Dict, Any
 
 class Form:
 
-	def __init__():
-		raise Exception("Not implemented")
-
 	def validate():
 		raise Exception("Not implemented")
 
@@ -71,12 +68,12 @@ class ProblematicsForm(Form):
 
 
 class RelatedNewsForm(Form):
-	
-	def __init__():
-		pass
 
 	def validate():
 		return True
 
-	def build_response():
-		pass
+	def build_response(news):
+		return {
+			"status": True,
+			"news": news
+		}
