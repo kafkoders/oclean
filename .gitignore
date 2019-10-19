@@ -105,3 +105,6 @@ venv.bak/
 
 # sftp config
 backend/sftp-config.json
+
+#dsstore
+*.DS_Store
