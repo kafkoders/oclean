@@ -70,16 +70,15 @@ class RelatedNewsForm(Form):
 class OrganizationsPostForm(Form):
 
 	def __init__(self, parameters):
-		self.id_ = parameters.get('id')
 		self.url = parameters.get('url')
 		self.name = parameters.get('name')
 		self.token = parameters.get('token')
 		self.description = parameters.get('description')
 
 	def validate(self):
-		return not (self.id_ is None or self.url is None or self.name is None or self.token is None or self.description is None)
+		return not (self.url is None or self.name is None or self.token is None or self.description is None)
 
-	def build_response(self, organizations):
+	def build_response(self):
 		return {
 			"status": True
 		}

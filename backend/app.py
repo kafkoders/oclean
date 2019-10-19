@@ -157,7 +157,7 @@ def news_endpoint():
 @app.route("/v1/organizations", methods=["GET", "POST"])
 def organizations_endpoint():
     if flask_request.method == 'POST':
-        return rganizations_endpoint_post()
+        return organizations_endpoint_post()
     elif flask_request.method == 'GET':
         return organizations_endpoint_get()
 
@@ -192,7 +192,7 @@ def organizations_endpoint_post():
 
     log.info(f"POST {flask_request.path}: validating token")
     try:
-        is_token_valid = organization_model.validate_token(f.token)
+        is_token_valid = organization_model.validate_token(form.token)
         if not is_token_valid:
             log.info(f"POST {flask_request.path}: token not allowed")
             return form.build_error_response("token not allowed"), 500
@@ -203,9 +203,12 @@ def organizations_endpoint_post():
 
     log.info(f"POST {flask_request.path}: querying model")
     try:
-        news = organization_model.insert_organization(form.id_, form.url, form.name, form.decription)
+        is_insertion_ok = organization_model.insert_organization(form.url, form.name, form.description)
+        if not is_token_valid:
+            log.info(f"POST {flask_request.path}: error on insertion")
+            return form.build_error_response("internal server error"), 500
     except Exception as ex:
         log.info(f"POST {flask_request.path}: error querying model {ex}")
         return form.build_error_response("internal server error"), 500
 
-    return form.build_response(news)
+    return form.build_response()
