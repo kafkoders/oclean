@@ -2,7 +2,9 @@ import logging
 
 from flask import Flask, abort
 from flask import request as flask_request
+from flask_cors import CORS, cross_origin
 from flask_swagger_ui import get_swaggerui_blueprint
+
 
 from config import DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWD
 from config import APP_NAME, LOG_NAME, SWAGGER_URL, SWAGGER_FILE, SWAGGER_FILE_URL
