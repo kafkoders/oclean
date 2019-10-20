@@ -46,7 +46,8 @@ def scrape():
                                "description": desc.strip(),
                            })
 
-   return organizations
+   return organizations  
+
 
 def sql_insert(organizations):
 
@@ -64,16 +65,22 @@ def sql_insert(organizations):
                charset='utf8',
                port=DB_PORT,
                cursorclass=pymysql.cursors.DictCursor)
+   try:
+      with connection.cursor() as cursor:
+         sql = f"DELETE FROM organizations;"
+         cursor.execute(sql)
+      connection.commit()
+   except:
+      pass    
 
    for org in organizations:
-       try:
-           with connection.cursor() as cursor:
-                sql = f"INSERT INTO organizations (url, name, description) VALUES (\"{org['url']}\", \"{org['name']}\", \"{org['description']}\");"
-                cursor.execute(sql)
-           connection.commit()
-       except:
-          pass
-
+      try:
+         with connection.cursor() as cursor:
+            sql = f"INSERT INTO organizations (url, name, description) VALUES (\"{org['url']}\", \"{org['name']}\", \"{org['description']}\");"
+            cursor.execute(sql)
+         connection.commit()
+      except:
+         pass
 
 if __name__ == "__main__":
    organizations = scrape()
