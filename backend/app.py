@@ -9,10 +9,9 @@ from flask_swagger_ui import get_swaggerui_blueprint
 from config import DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWD
 from config import APP_NAME, LOG_NAME, SWAGGER_URL, SWAGGER_FILE, SWAGGER_FILE_URL
 
-from forms import HeatMapForm, RelatedNewsForm, OrganizationsForm
+from forms import RelatedNewsForm, OrganizationsForm
 
 from models.newsmodel import NewsModel
-from models.heatmapmodel import HeatMapModel
 from models.organizationsmodel import OrganizationsModel
 
 ############# CONFIGURAION ################
@@ -22,7 +21,6 @@ app.config.from_object('config')
 
 cors = CORS(app, resources={
     r"/v1/news": {"origins": "http://t24h.es:50003"},
-    r"/v1/heatmap": {"origins": "http://t24h.es:50003"},
     r"/v1/organizations": {"origins": "http://t24h.es:50003"}
     }
 )
@@ -42,7 +40,6 @@ log = logging.getLogger(LOG_NAME)
 
 ################## MODELS ##################
 
-heatmap_model = HeatMapModel()
 news_model = NewsModel(DB_HOST, DB_PORT, DB_USER, DB_PASSWD, DB_NAME)
 organization_model = OrganizationsModel(DB_HOST, DB_PORT, DB_USER, DB_PASSWD, DB_NAME)
 
@@ -59,27 +56,6 @@ def read_swagger_file():
         return f.read()
 
 ################## SOURCE ##################
-
-@app.route("/v1/heatmap", methods=["GET"])
-def heatmap_endpoint():
-    log.info(f"GET {flask_request.path}")
-    
-    log.info(f"GET {flask_request.path}: creating formulary")
-    form = HeatMapForm(flask_request)
-    if not form.validate():
-        log.info(f"GET {flask_request.path}: malformed request")
-        return form.build_error_response("malformed request"), 403
-
-    log.info(f"GET {flask_request.path}: querying model")
-    try:
-        heatmap_model.foo()
-    except Exception as ex:
-        log.info(f"GET {flask_request.path}: error querying model {ex}")
-        return form.build_error_response("internal server error"), 500
-
-    response = jsonify(form.build_response())
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
 
 @app.route("/v1/news", methods=["GET"])
 def news_endpoint():
