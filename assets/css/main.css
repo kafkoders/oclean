@@ -1818,6 +1818,26 @@ ul.icons {
   margin-bottom: 100px;
 }
 
+.need3{
+  padding-top: 19px;
+  margin-top: 10px;
+  padding-bottom: 20px;
+  margin-bottom: 20px; 
+  padding-left: 20px;
+  margin-left: 20px; 
+  padding-right: 20px;
+  margin-right: 20px;
+    
+  /* Grid-area created for every Gadget --> 6 rows and 2 columns */
+    
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: minmax(50px, 0px);
+  grid-column-gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 100px;
+}
+
 /* Line that separates each gadget description */
 
 .separador{

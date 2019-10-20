@@ -18,7 +18,7 @@ function load_page() {
         timeout: 3000,
         success: function(data)
         {
-            alert(JSON.parse(data))
+            //alert(JSON.parse(data))
             CreateTable(JSON.parse(data).news);
         },
         error: function (data)
@@ -83,7 +83,7 @@ function CreateTable(requests_array) {
 
 		<!-- Header -->
 			<header id="header">
-				<a class="logo" href="index.html">Oc(l)ean S.L</a>
+				<a class="logo" href="index.html">Kafkoders</a>
 				<nav>
 					<a href="#menu">Menu</a>
 				</nav>

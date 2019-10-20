@@ -10,16 +10,17 @@
 <script>
     
 function load_page() {
+    // Call to the api 
     $.ajax({
         type: 'GET',
-        url: 'http://t24h.es:50002/v1/news',
+        url: 'http://t24h.es:50002/v1/organizations',
         crossDomain: true,
         dataType: 'text',
         timeout: 3000,
         success: function(data)
         {
-            alert(JSON.parse(data))
-            CreateTable(JSON.parse(data).news);
+            //alert(JSON.parse(data))
+            CreateTable(JSON.parse(data).organizations); // Creates the API 
         },
         error: function (data)
         {
@@ -39,14 +40,11 @@ function CreateTable(requests_array) {
         const div = document.createElement('div');
 
           div.innerHTML = `
-            <div class="need2">
+            <div class="need3">
                   <div class="need-value">
-                    <p class="need-value"><small class="text-muted">{date}, {source}</small></p>
-                    <h5 class="card-title">{title}</h5>
+                    <a class="card-title" href="{link}">{name}</a>
                     <p class="card-text">{text}</p>
-                    <a href="{link}" id="link_read" class="btn btn-primary">Read more</a>
                   </div>
-                <img class="image-problematics20" src="{img}" alt="Card image cap">
             </div>
                             
             <hr class="separador" />
@@ -56,10 +54,7 @@ function CreateTable(requests_array) {
             div.innerHTML = div.innerHTML.replace("{img}", requests_array[i]['image']);
         else
         */
-        div.innerHTML = div.innerHTML.replace("{img}", default_image);
-        div.innerHTML = div.innerHTML.replace("{date}", requests_array[i]['publicationDate']);
-        div.innerHTML = div.innerHTML.replace("{source}", requests_array[i]['newspaper']);
-        div.innerHTML = div.innerHTML.replace("{title}", requests_array[i]['title']);
+        div.innerHTML = div.innerHTML.replace("{name}", requests_array[i]['name']);
         div.innerHTML = div.innerHTML.replace("{text}", requests_array[i]['description']);
         div.innerHTML = div.innerHTML.replace("{link}", requests_array[i]['url']);
         document.getElementById('Necesidades').appendChild(div);
@@ -83,7 +78,7 @@ function CreateTable(requests_array) {
 
 		<!-- Header -->
 			<header id="header">
-				<a class="logo" href="index.html">Oc(l)ean S.L</a>
+				<a class="logo" href="index.html">Kafkoders</a>
 				<nav>
 					<a href="#menu">Menu</a>
 				</nav>
@@ -104,7 +99,7 @@ function CreateTable(requests_array) {
 
 		<!-- Heading -->
 			<div id="heading" >
-				<h1>News and Reports</h1>
+				<h1>Organizations</h1>
 			</div>
 
 		<!-- Main -->
@@ -117,40 +112,7 @@ function CreateTable(requests_array) {
                     </div>
 				</div>
         </section>
-        <!--
-			<section id="main" class="wrapper">
-				<div class="inner">
-					<div class="container">
-                          <div class="row">
-                            <div class="col-12">
-                                <table class="table table-image">
-                                  <thead>
-                                    <tr>
-                                      <th scope="col">Image</th>
-                                      <th scope="col">Article Name</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody id="mytablecontent">
-                                    <tr>
-                                      <td class="w-25">
-                                          <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-3.jpg" class="img-fluid img-thumbnail" alt="Sheep" style="width:350px">
-                                      </td>
-                                      <td class="">Bootstrap 4 CDN and Starter Template</td>
-                                    </tr>
-                                    <tr>
-                                      <td class="w-25">
-                                          <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-5.jpg" class="img-fluid img-thumbnail" alt="Sheep"  style="width:350px">
-                                      </td>
-                                      <td>Bootstrap Grid 4 Tutorial and Examples</td>
-                                    </tr>
-                                  </tbody>
-                                </table>   
-                            </div>
-                          </div>
-                        </div>
-				</div>
-			</section>
-        -->
+
 		<!-- Footer -->
 			<footer id="footer">
 				<div class="inner">
