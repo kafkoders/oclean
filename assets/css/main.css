@@ -1031,6 +1031,59 @@ ul.actions {
           ul.actions:not(.fixed) li .button.icon:before {
             margin-left: -0.5rem; } }
 
+
+/* BUtton */
+/* Reset */
+#donations {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  outline: 0;
+  -webkit-appearance: none;
+}
+
+/* Custom */
+#donations {
+  display: inline-block;
+  position: relative;
+  padding: 20px 38px;
+  top: 0;
+  font-size: 30px;
+  font-family: "Open Sans", Helvetica;
+  border-radius: 40px;
+  border-bottom: 50px solid lightblue;
+  background: lightblue;
+  color: #fff;
+  box-shadow: 0px 0px 0px lightblue;
+  
+  -webkit-transform: translateZ(0);
+     -moz-transform: translateZ(0);
+      -ms-transform: translateZ(0);
+          transform: translateZ(0);
+  
+  -webkit-transition: all 0.2s ease;
+     -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+          transition: all 0.2s ease;
+}
+
+#donations:hover {
+  top: -10px;
+  box-shadow: 0px 10px 10px rgba( 15, 165, 60, 0.2 );
+  
+  -webkit-transform: rotateX(20deg);
+     -moz-transform: rotateX(20deg);
+      -ms-transform: rotateX(20deg);
+          transform: rotateX(20deg);
+}
+
+#donations:active {
+  top: 0px;
+  box-shadow: 0px 0px 0px rgba( 15, 165, 60, 0.0 );
+  background: rgba( 20, 224, 133, 1 );
+}
+
 /* Grid */
 .row {
   display: flex;
@@ -1863,7 +1916,7 @@ ul.icons {
 
 #Text1, #Text3, #Text5, #Text7{
     grid-column: 1 / 1;
-    grid-row: 1;
+    grid-row: 2;
     width: 90%;
 }
 
@@ -1874,9 +1927,13 @@ ul.icons {
     grid-column: 2;
 }
 
+#Title4_1 {
+    grid-row: 0;
+}
+
 #Text2, #Text4, #Text6{
     grid-column: 2;
-    grid-row: 1;
+    grid-row: 2;
     width: 90%;
 }
 
