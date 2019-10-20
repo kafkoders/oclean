@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,53 +16,36 @@
             <rect key="frame" x="0.0" y="0.0" width="306" height="445"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oW9-4I-G3j">
-                    <rect key="frame" x="0.0" y="0.0" width="306" height="250"/>
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="smo-7Y-Pd2" customClass="BatteryView" customModule="BatteryView">
+                    <rect key="frame" x="26" y="37" width="255" height="371"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="306" id="G60-9u-1sy"/>
-                        <constraint firstAttribute="width" secondItem="oW9-4I-G3j" secondAttribute="height" multiplier="153:125" id="VL9-fz-Z7q"/>
-                        <constraint firstAttribute="height" constant="250" id="fRr-eZ-boY"/>
+                        <constraint firstAttribute="height" constant="371" id="gkK-Ia-pGp"/>
                     </constraints>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Jf-A9-6bE">
-                    <rect key="frame" x="16" y="258" width="274" height="63"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="63" id="084-xf-zFT"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2VO-JY-eW1">
+                    <rect key="frame" x="25" y="37" width="256" height="371"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="31"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Hvg-8y-5Fi">
-                    <rect key="frame" x="16" y="329" width="274" height="116"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="116" id="GTa-9c-BJx"/>
-                    </constraints>
-                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                </textView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="8Jf-A9-6bE" firstAttribute="top" secondItem="oW9-4I-G3j" secondAttribute="bottom" constant="8" symbolic="YES" id="B09-oD-CVS"/>
-                <constraint firstItem="oW9-4I-G3j" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="BIH-NG-BKy"/>
-                <constraint firstItem="oW9-4I-G3j" firstAttribute="centerX" secondItem="8Jf-A9-6bE" secondAttribute="centerX" id="FPF-pv-L3h"/>
-                <constraint firstItem="8Jf-A9-6bE" firstAttribute="trailing" secondItem="Hvg-8y-5Fi" secondAttribute="trailing" id="NjA-l7-Zbf"/>
-                <constraint firstItem="oW9-4I-G3j" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="abf-Bw-600"/>
-                <constraint firstItem="8Jf-A9-6bE" firstAttribute="leading" secondItem="Hvg-8y-5Fi" secondAttribute="leading" id="cXX-YA-E0Z"/>
-                <constraint firstItem="Hvg-8y-5Fi" firstAttribute="top" secondItem="8Jf-A9-6bE" secondAttribute="bottom" constant="8" symbolic="YES" id="gkw-LX-fUl"/>
-                <constraint firstItem="8Jf-A9-6bE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="q8i-U1-bye"/>
-                <constraint firstAttribute="trailing" secondItem="oW9-4I-G3j" secondAttribute="trailing" id="rAt-jO-N8i"/>
-                <constraint firstItem="Hvg-8y-5Fi" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="t0n-fF-jWj"/>
+                <constraint firstItem="2VO-JY-eW1" firstAttribute="top" secondItem="smo-7Y-Pd2" secondAttribute="top" id="AN3-Oc-2Wp"/>
+                <constraint firstItem="smo-7Y-Pd2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="26" id="EzB-qn-RNn"/>
+                <constraint firstItem="smo-7Y-Pd2" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="37" id="LsP-gL-E8q"/>
+                <constraint firstItem="smo-7Y-Pd2" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Xwn-U9-bRc"/>
+                <constraint firstItem="2VO-JY-eW1" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ZAD-Pv-CRf"/>
+                <constraint firstItem="2VO-JY-eW1" firstAttribute="bottom" secondItem="smo-7Y-Pd2" secondAttribute="bottom" id="ddg-rj-luq"/>
+                <constraint firstItem="smo-7Y-Pd2" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="g25-LT-9Il"/>
+                <constraint firstItem="2VO-JY-eW1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="25" id="yEg-mK-XWN"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outlet property="descriptionLabel" destination="Hvg-8y-5Fi" id="aim-kY-8Re"/>
-                <outlet property="imageView" destination="oW9-4I-G3j" id="mSf-jI-ufD"/>
-                <outlet property="titleLabel" destination="8Jf-A9-6bE" id="eyI-mI-roO"/>
+                <outlet property="batteryView" destination="smo-7Y-Pd2" id="3bC-er-pXN"/>
+                <outlet property="fillingPercenLabel" destination="2VO-JY-eW1" id="ZtF-DN-7Oi"/>
             </connections>
             <point key="canvasLocation" x="-80" y="-59.820089955022496"/>
         </view>

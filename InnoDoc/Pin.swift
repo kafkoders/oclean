@@ -12,27 +12,27 @@ import MapKit
 private let clusterID = "clusterIdentifier"
 
 class Pin: NSObject, MKAnnotation {
-    var id: Int
-    var user: String
-    var question: String
-    var answer: String
-    var category: String
+    var id: String
+    var fillingPercentage: Int
     var coordinate: CLLocationCoordinate2D
     
-    init(id: Int, username: String, category: String, question: String, answer: String, coordinate: CLLocationCoordinate2D) {
+    init(id: String, fillingPercentage: Int, coordinate: CLLocationCoordinate2D) {
         self.id = id
-        self.user = username
-        self.category = category
-        self.answer = answer
-        self.question = question
+        self.fillingPercentage = fillingPercentage
         self.coordinate = coordinate
     }
 }
 
 class PinAnnotationView: MKMarkerAnnotationView {
-    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
+    init(annotation: MKAnnotation?, reuseIdentifier: String?, status: Bool) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         clusteringIdentifier = "pinClID"
+        
+        if status {
+            markerTintColor = .red
+        } else {
+            markerTintColor = .green
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,7 +42,8 @@ class PinAnnotationView: MKMarkerAnnotationView {
     override func prepareForDisplay() {
         super.prepareForDisplay()
         displayPriority = .defaultLow
-        markerTintColor = UIColor.red
+        
+        //markerTintColor = UIColor.red
     }
 }
 

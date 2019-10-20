@@ -14,41 +14,34 @@ import Alamofire
 import MBProgressHUD
 import Malert
 
+import web3swift
+import BigInt
+
 class ViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var changeMapButton: UIButton!
     
     var locationManager: CLLocationManager!
     var latestCoordinates = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     var okAction: UIAlertAction!
     
-    let serverIP = "https://vm-bisite-09.der.usal.es/"
+    var activePoints = [Pin]()
+    
+    var walletAddress: String!
+    var infura: Web3!
 
+    let jsonContract = "[{\"constant\":false,\"inputs\":[{\"name\":\"_containerAddress\",\"type\":\"address\"},{\"name\":\"_latitude\",\"type\":\"string\"},{\"name\":\"_longitude\",\"type\":\"string\"}],\"name\":\"createContainer\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_fillingPercentage\",\"type\":\"uint256\"}],\"name\":\"set\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"throwFireAlarm\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"containerId\",\"type\":\"uint256\"},{\"indexed\":false,\"name\":\"containerAddress\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"latitude\",\"type\":\"string\"},{\"indexed\":false,\"name\":\"longitude\",\"type\":\"string\"}],\"name\":\"LogNewContainer\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"containerId\",\"type\":\"uint256\"},{\"indexed\":false,\"name\":\"fillingPercentage\",\"type\":\"uint256\"}],\"name\":\"LogNewFilling\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"containerId\",\"type\":\"uint256\"}],\"name\":\"LogFireAlarm\",\"type\":\"event\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"containerToOwner\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getAllContainers\",\"outputs\":[{\"components\":[{\"name\":\"containerAddress\",\"type\":\"address\"},{\"name\":\"latitude\",\"type\":\"string\"},{\"name\":\"longitude\",\"type\":\"string\"},{\"name\":\"fillingPercentage\",\"type\":\"uint256\"}],\"name\":\"\",\"type\":\"tuple[]\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_containerId\",\"type\":\"uint256\"}],\"name\":\"getContainer\",\"outputs\":[{\"name\":\"containerAddress\",\"type\":\"address\"},{\"name\":\"latitude\",\"type\":\"string\"},{\"name\":\"longitude\",\"type\":\"string\"},{\"name\":\"fillingPercentage\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getContainerLenght\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        definesPresentationContext = true
-        
-        // Ponemos bonitos los botone.
-        addButton.layer.cornerRadius = 15
-        addButton.backgroundColor = UIColor(red:0.20, green:0.60, blue:1.00, alpha:1.0)
-        addButton.alpha = 0.8
         
         changeMapButton.layer.shadowColor = UIColor.black.cgColor
         changeMapButton.layer.shadowOffset = .zero
         changeMapButton.layer.masksToBounds = false
         changeMapButton.layer.shadowOpacity = 1.0
         changeMapButton.layer.shadowRadius = 5
-        
-        // Centramos la ubicación inicial del mapa en las coordenadas centrales de Salamanca.
-        let initialLocation = CLLocation(latitude: 40.9688200, longitude: -5.6638800)
-        let searchRadius: CLLocationDistance = 2000
-        
-        let region = MKCoordinateRegion.init(center: initialLocation.coordinate, latitudinalMeters: searchRadius*2.0, longitudinalMeters: searchRadius * 2.0)
-        mapView.setRegion(region, animated: true)
-        
         
         // Registramos las clases y el delegado.
         mapView.delegate = self
@@ -59,29 +52,26 @@ class ViewController: UIViewController {
         /*
          * Zona de peticiones al servidor.
                 Se le pide al servidor todo el contenido que responderá como JSON, parsearemos y añadiremos al mapa.
-         */
+ 
         Alamofire.request(serverIP + "index.php?controller=Usuarios&action=api").responseJSON { (response) in
-
-            if let data = response.result.value as? [[String: Any]] {
-                for pin in data {
-                    
-                    if let id = (pin["id"] as? NSString)?.intValue,
-                        let username = pin["usuario"] as? String,
-                        let latitude = (pin["latitud"] as? NSString)?.doubleValue,
-                        let longitude = (pin["longitud"] as? NSString)?.doubleValue,
-                        let category = pin["categoria"] as? String,
-                        let question = pin["pregunta"] as? String,
-                        let answer = pin["respuesta"] as? String {
-                        
-                        self.addPin(id: Int(id), username: username, category: category, question: question, answer: answer, coordinates: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
-                    }
-                }
-            }
-        }
+*/
         
-        // Comprobamos si se ha introducido el e-mail por parte del usuario. Si no es así, se le insiste.
-        if UserDefaults.standard.value(forKey: "userEmail")  == nil {
-             askEmail()
+        infura = Web3(infura: .rinkeby, accessToken: "a071903b67d847eda9080886d341b96a")
+        updateFromBC(self)
+        
+        // Obtenemos el número de monedas del wallet.
+        if let data = UserDefaults.standard.value(forKey: "walletData") as? Data, let address = UserDefaults.standard.value(forKey: "walletAddress") as? String {
+            print("Wallet creada. Decodifico")
+            //let result = try? JSONDecoder().decode(KeystoreParamsV3.self, from: data)
+            //print(result)
+
+            
+            self.walletAddress = address
+//            let amount = getWalletAmount(walletAddress: address, web3: infura)
+//            print("Amount: \(amount)")
+        } else {
+            print("Creo nueva wallet")
+            newWallet()
         }
     }
     
@@ -95,58 +85,8 @@ class ViewController: UIViewController {
     }
     
     /*
-     * func addPin -> void
-     *      Pasa los argumentos necesarios para poder crear un pin y añadirlo al mapa, como la clase Pin.
-     *      Cada uno de los argumentos corresponde a su valor en la clase Pin.
-     */
-    func addPin(id: Int, username: String, category: String, question: String, answer: String, coordinates: CLLocationCoordinate2D) {
-        mapView.addAnnotation(Pin(id: id, username: username, category: category, question: question, answer: answer, coordinate: coordinates))
-    }
-    
-    
-    /*
      * Zona de Interacción con el usuario.
      */
-    
-    /*
-     * func askEmail()
-            Muestra un AlertController de tipo View con dos TextField (nombre de usuario y email)
-     */
-    func askEmail() {
-        let alert = UIAlertController(title: "Establecer E-Mail", message: "Para poder utilizar esta aplicación es necesario que nos indique su correo electrónico y un nombre de usuario.", preferredStyle: .alert)
-        
-        var mailTField = UITextField()
-        var userTField = UITextField()
-        
-        alert.addTextField { (textField) in
-            mailTField = textField
-            
-            textField.tag = 10
-            textField.placeholder = "Nombre de usuario"
-            textField.keyboardType = .emailAddress
-            textField.delegate = self
-        }
-        
-        alert.addTextField { (textField) in
-            userTField = textField
-            
-            textField.tag = 11
-            textField.placeholder = "E-Mail"
-            textField.keyboardType = .emailAddress
-            textField.delegate = self
-        }
-        
-        okAction = UIAlertAction(title: "Aceptar", style: .default, handler: { (UIAlertAction) in
-            if let mail = mailTField.text, let username = userTField.text {
-                UserDefaults.standard.set(mail, forKey: "userEmail")
-                UserDefaults.standard.set(username, forKey: "userName")
-            }
-        })
-        okAction.isEnabled = false
-        alert.addAction(okAction)
-        
-        self.present(alert, animated: true, completion: nil)
-    }
     
     /*
      * @IBAction func showAskMenu(_ sender: Any) {
@@ -154,57 +94,134 @@ class ViewController: UIViewController {
             Cuando se le da al botón de enviar se conecta al servidor.
      */
     @IBAction func showAskMenu(_ sender: Any) {
-        if UserDefaults.standard.value(forKey: "userEmail") == nil {
-            askEmail()
-        }
+        // Lógica de funcionamiento para mañana: (que al leer esto mañana será hoy)
+        // Y al leerlo otro día tiempo pasado
         
-        let alert = UIAlertController(title: "Preguntar", message: "¡Preguntenos lo que quiera! Puede hacerlo escribiendo aqui:", preferredStyle: .alert)
-        var tField = UITextField()
+        /*
+         La manera más eficiente computacionalmente de hacerlo es relacionando puntos entre si
+         esto es, para ir de A -> F, pasando por los intermedios, tendrá que ser secuencial
+         
+         Aunque no es eficiente para calcular la ruta, es lo más simple de calcular.
+         Esto debe ser, para ir de A->F, del tipo A->B B->C C->D D->E E->F
+        */
         
-        alert.addTextField { (textField) in
-            tField = textField
-            textField.placeholder = "Pregunta"
-            textField.autocorrectionType = .yes
-        }
-        
-        
-        // Al pulsar el botón de enviar muestra el HUD y envia la pregunta al servidor.
-        alert.addAction(UIAlertAction(title: "Aceptar", style: .default, handler: { (UIAlertAction) in
-            let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-            hud.mode = .indeterminate
-            hud.label.text = "Subiendo pregunta"
+        for i in 0...self.activePoints.count {
+            // Se tendrá que tomar el punto actual (i) y el siguiente (i+1)
+            // Pese a que no tengan continuidad geográfica. Cuidado
+            if i == self.activePoints.count-1 { break }
+
+            //if
+                let source = MKMapItem(placemark: MKPlacemark(coordinate: self.mapView.annotations[i].coordinate, addressDictionary: nil))
+                let dest = MKMapItem(placemark: MKPlacemark(coordinate: self.mapView.annotations[i+1].coordinate, addressDictionary: nil))// {
             
-            if let question = tField.text,
-                let username = UserDefaults.standard.value(forKey: "userName"),
-                let userMail = UserDefaults.standard.value(forKey: "userEmail") {
+                let directionRequest = MKDirections.Request()
+                directionRequest.source = source
+                directionRequest.destination = dest
+                directionRequest.transportType = .automobile
+
+                // Calculate the direction
+                let directions = MKDirections(request: directionRequest)
                 
-                let queryData: Parameters = ["user": username, "mail": userMail, "coordinate_lat": self.latestCoordinates.latitude, "coordinate_long": self.latestCoordinates.longitude, "question": question]
-                
-                Alamofire.request(self.serverIP + "index.php?controller=Usuarios&action=getJSON", method: .post, parameters: queryData).response(completionHandler: { (response) in
-                    // Si el código es un 200, correcto. Procedemos.
-                    if let code = response.response?.statusCode, code == 200 {
-                        print("Consulta hecha OK")
-                        hud.hide(animated: true)
-                    } else {
-                        // Ha habido un error. Mostramos y cancelamos.
-                        hud.mode = .text
-                        hud.label.text = "Error subiendo pregunta."
-                        hud.hide(animated: true, afterDelay: 2)
+                // 8.
+                directions.calculate {
+                    (response, error) -> Void in
+                    
+                    guard let response = response else {
+                        if let error = error {
+                            print("Error: \(error)")
+                        }
+                        
+                        return
                     }
-                })
-            } else {
-                hud.mode = .text
-                hud.label.text = "Error subiendo pregunta."
-                hud.hide(animated: true, afterDelay: 2)
-            }
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { (UIAlertAction) in
-            alert.dismiss(animated: true, completion: nil)
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
+                    
+                    let route = response.routes[0]
+                    self.mapView.addOverlay((route.polyline), level: MKOverlayLevel.aboveRoads)
+                    
+                    let rect = route.polyline.boundingMapRect
+                    self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
+                }
+            //}
+            
+        }
     }
+    
+    
+    @IBAction func updateFromBC(_ sender: Any) {
+        self.mapView.removeAnnotations(self.mapView.annotations)
+        let ethContractAddress = Address("0x00407706920cd607f1f8a745e50572f41d9dd349")
+        
+        let contract = try! infura.contract(jsonContract, at: ethContractAddress)
+        
+        var options = Web3Options.default
+        options.from = Address(stringLiteral: "0x7B738EA61B2fa1fA6F30C2B9cBF64261fd3e97A5")
+        
+        
+        let getLenght = try! contract.method("getContainerLenght", parameters:[] as [AnyObject], options: options)
+        do {
+            let resultL = try getLenght.call(options: options)
+            print(resultL.dictionary)
+            
+            if let lenght = resultL.dictionary["0"]! as? BigUInt {
+                for i in 0...Int(lenght-1) {
+                    let transactionIntermediate = try! contract.method("getContainer", parameters:[i] as [AnyObject], options: options)
+                    
+                    let result = try transactionIntermediate.call(options: options)
+                    print(result.dictionary)
+                    
+                    
+                    if let latitude = (result.dictionary["latitude"] as? NSString)?.doubleValue,
+                        let longitude = (result.dictionary["longitude"] as? NSString)?.doubleValue,
+                        let fillingPercentage = result.dictionary["fillingPercentage"] as? BigUInt {
+                        
+                        print(latitude)
+                        print(longitude)
+                        print(fillingPercentage)
+                        
+                        self.mapView.addAnnotation(Pin(id: "a\(i)", fillingPercentage: Int(fillingPercentage), coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude)))
+                    }
+                }
+                
+                // Para prototipado, aplicamos datos estáticos
+                self.mapView.addAnnotation(Pin(id: "1", fillingPercentage: 80, coordinate: CLLocationCoordinate2D(latitude: 40.385137, longitude: -5.772677)))
+                self.mapView.addAnnotation(Pin(id: "2", fillingPercentage: 30, coordinate: CLLocationCoordinate2D(latitude: 40.382149, longitude:  -5.767989)))
+                self.mapView.addAnnotation(Pin(id: "3", fillingPercentage: 95, coordinate: CLLocationCoordinate2D(latitude: 40.38874, longitude: -5.777986)))
+                
+                self.activePoints.removeAll()
+                for annotation in self.mapView.annotations {
+                    if let annotation = annotation as? Pin, annotation.fillingPercentage > 70 {
+                        print("id: \(annotation.id), perc: \(annotation.fillingPercentage)")
+                        
+                        self.activePoints.append(annotation)
+                    }
+                }
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    @IBAction func goToWallet(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        if let walletVC = storyboard.instantiateViewController(withIdentifier: "walletVC") as? WalletViewController {
+            walletVC.address = self.walletAddress
+            walletVC.web3 = self.infura
+            
+            self.present(walletVC, animated: true, completion: nil)
+        }
+    }
+    
+    
+    func newWallet() {
+        if let wallet = createWallet(name: "Carlos' Wallet", password: "bisite00"), let data = wallet.data {
+            UserDefaults.standard.set(data, forKey: "walletData")
+            UserDefaults.standard.set(wallet.address, forKey: "walletAddress")
+            
+            print("Todo OK")
+        }
+    }
+    
+    
     
     @IBAction func changeMode(_ sender: Any) {
         if mapView.mapType == .standard {
@@ -234,7 +251,17 @@ extension ViewController: MKMapViewDelegate {
     // Mostramos la vista especial solo para los pin únicos. Para los cluster no se aplica.
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let annotation = annotation as? Pin else { return nil }
-        return PinAnnotationView(annotation: annotation, reuseIdentifier: "pinReuseID")
+        return PinAnnotationView(annotation: annotation, reuseIdentifier: "pinReuseID", status: annotation.fillingPercentage > 70)
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if overlay is MKPolyline {
+            var polylineRenderer = MKPolylineRenderer(overlay: overlay)
+            polylineRenderer.strokeColor = .blue
+            polylineRenderer.lineWidth = 5
+            return polylineRenderer
+        }
+        return MKOverlayRenderer()
     }
     
     // Cuando pulsan sobre una de ellas se actúa en consecuencia.
@@ -275,19 +302,6 @@ extension ViewController: MKMapViewDelegate {
         firstAction.tintColor = UIColor.lightGray
         alert.addAction(firstAction)
         
-        let secondAction = MalertAction(title: "Ver más") {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            if let vc = storyboard.instantiateViewController(withIdentifier: "questionDetailVC") as? QuestionDetailVC {
-                vc.pin = pin
-                
-                sender.dismiss(animated: true, completion: {
-                    sender.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
-                })
-            }
-        }
-        secondAction.tintColor = UIColor(red:0.65, green:0.11, blue:0.13, alpha:1.0)
-        alert.addAction(secondAction)
-        
         sender.present(alert, animated: true)
     }
 }
@@ -319,48 +333,13 @@ extension ViewController: CLLocationManagerDelegate {
         latestCoordinates = locValue
         print(latestCoordinates)
         self.locationManager.stopUpdatingLocation()
-    }
-}
-
-
-
-
-// BORRAR
-class PinDetailViewController: UIViewController, KUIPopOverUsable {
-    @IBOutlet weak var questionLabel: UILabel!
-    @IBOutlet weak var answerLabel: UILabel!
-    
-    var pin: Pin?
-    
-    private lazy var size: CGSize = {
-        return CGSize(width: 270.0, height: 185)
-    }()
-    
-    var contentSize: CGSize {
-        return size
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        preferredContentSize = size
         
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        // Centramos la ubicación inicial del mapa en las coordenadas centrales de Salamanca.
+        let initialLocation = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
+        let searchRadius: CLLocationDistance = 2000
         
-        if let pin = pin {
-            questionLabel.text = pin.question
-            answerLabel.text = pin.answer
-        }
-    }
-    
-    @IBAction func seeMoreAction(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let vc = storyboard.instantiateViewController(withIdentifier: "questionDetailVC") as? QuestionDetailVC {
-            
-            if let pin = pin {
-                vc.pin = pin
-                
-                self.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
-            }
-        }
+        let region = MKCoordinateRegion.init(center: initialLocation.coordinate, latitudinalMeters: searchRadius*2.0, longitudinalMeters: searchRadius * 2.0)
+        mapView.setRegion(region, animated: true)
+        
     }
 }
