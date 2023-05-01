@@ -9,7 +9,7 @@ setup(
     url="https://2019.spaceappschallenge.org",
     packages=['models'],
     install_requires=[
-        'Flask==1.1.1',
+        'Flask==2.3.2',
         'flask_swagger_ui',
         "pymysql"
     ]
